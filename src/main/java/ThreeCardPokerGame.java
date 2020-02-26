@@ -12,9 +12,12 @@ public class ThreeCardPokerGame extends Application {
 
 	//feel free to remove the starter code from this method
 	//we got this
+	//Ronaldo is the best
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
+
+		// poop
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 		
 		Scene scene = new Scene(new HBox(),600,600);
