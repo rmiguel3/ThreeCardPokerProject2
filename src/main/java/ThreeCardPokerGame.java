@@ -16,7 +16,6 @@ public class ThreeCardPokerGame extends Application {
 
 		// poop
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
-		//pee
 		
 		Scene scene = new Scene(new HBox(),600,600);
 		primaryStage.setScene(scene);
