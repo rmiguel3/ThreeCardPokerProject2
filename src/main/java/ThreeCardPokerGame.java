@@ -10,9 +10,6 @@ public class ThreeCardPokerGame extends Application {
 		launch(args);
 	}
 
-	//feel free to remove the starter code from this method
-	//we got this
-	//Ronaldo is the best
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
