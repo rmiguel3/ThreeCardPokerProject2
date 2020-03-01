@@ -14,12 +14,12 @@ public class ThreeCardPokerGame extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 
-		// poop
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 		
-		Scene scene = new Scene(new HBox(),600,600);
+		Scene scene = new Scene(new HBox(),1200,1200);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
 
 }
