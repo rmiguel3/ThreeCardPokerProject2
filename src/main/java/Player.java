@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+public class Player {
+	private ArrayList<Card> hand;
+	private int anteBet;
+	private int playBet;
+	private int pairPlusBet;
+	private int totalWinnings;
+
+	Player() {
+		hand = new ArrayList<Card>();
+		anteBet = 0;
+		playBet = 0;
+		pairPlusBet = 0;
+		totalWinnings = 0;
+	}
+}
