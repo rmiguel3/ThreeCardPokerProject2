@@ -8,4 +8,13 @@ public class Card {
         this.suit = s;
         this.value = v;
     }
+
+    public char getSuit() {
+        return suit;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
 }
