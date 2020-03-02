@@ -35,8 +35,6 @@ public class Player {
 		return totalWinnings;
 	}
 
-
-
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
 	}
