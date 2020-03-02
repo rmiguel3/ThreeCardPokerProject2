@@ -1,7 +1,9 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.*;
 
 public class ThreeCardPokerGame extends Application {
 
@@ -15,9 +17,12 @@ public class ThreeCardPokerGame extends Application {
 		// TODO Auto-generated method stub
 
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
+
+		TextArea text = new TextArea("Time to play poker");
 		
-		Scene scene = new Scene(new HBox(),1200,1200);
-		primaryStage.setScene(scene);
+		Scene defaultScene = new Scene(new HBox(),1200,1200);
+
+		primaryStage.setScene(defaultScene);
 		primaryStage.show();
 	}
 
