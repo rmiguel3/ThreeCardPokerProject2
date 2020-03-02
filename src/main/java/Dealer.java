@@ -7,7 +7,7 @@ public class Dealer {
     private ArrayList<Card> dealersHand;
 
     //sets up a brand new deck to start off
-    public Dealer(){
+    public Dealer() {
         theDeck = new Deck();
     }
 
