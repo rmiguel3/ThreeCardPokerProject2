@@ -1,5 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,17 +22,17 @@ public class ThreeCardPokerGame extends Application {
 
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 
-		Text text = new Text("Time to play poker");
-
 		BorderPane defaultScenePane = new BorderPane();
 
-		defaultScenePane.setTop(text);
+		Menu menu = new Menu("Options");
 
-		Image card1 = new Image("ace of hearts.jpg", 100, 200, true, true);
+		MenuItem m1 = new MenuItem("");
+
+		Image card1 = new Image("AH.png", 100, 200, true, true);
 
 		ImageView view1 = new ImageView(card1);
 
-		Image card2 = new Image("ace of clubs.jpg", 100, 200, true, true);
+		Image card2 = new Image("AC.png", 100, 200, true, true);
 
 		ImageView view2 = new ImageView(card2);
 
