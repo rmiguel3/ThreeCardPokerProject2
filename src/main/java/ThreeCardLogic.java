@@ -9,8 +9,10 @@ public class ThreeCardLogic {
         cardVals.add(hand.get(1).getValue());
         cardVals.add(hand.get(2).getValue());
         Collections.sort(cardVals);
-
-        return true;
+        if((cardVals.get(0) + 1 == cardVals.get(1)) && (cardVals.get(1) + 1 == cardVals.get(2))){
+            return true;
+        }
+        return false;
     }
 
     //private static boolean flush(ArrayList<Card> hand){}
