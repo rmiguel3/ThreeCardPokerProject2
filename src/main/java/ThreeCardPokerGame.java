@@ -13,16 +13,13 @@ import javafx.stage.Stage;
 public class ThreeCardPokerGame extends Application {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//System.out.println("Welcome to Three Card Poker!\n");
-		//System.out.println("Let's start");
-		launch(args);
+		System.out.println("Welcome to Three Card Poker!\n");
+		System.out.println("Let's start");
+		//launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 
 		BorderPane defaultScenePane = new BorderPane();
