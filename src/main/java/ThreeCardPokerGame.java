@@ -185,6 +185,7 @@ public class ThreeCardPokerGame extends Application {
 		Image diamondsKing = new Image("KD.png", 90, 150, true, true);
 		ImageView diamondsKingView = new ImageView(diamondsKing);
 
+
 		Image diamondsAce = new Image("AD.png", 90, 150, true, true);
 		ImageView diamondsAceView = new ImageView(diamondsAce);
 
