@@ -65,11 +65,27 @@ public class ThreeCardLogic {
         return 0;
     }
 
-    //Need to finish!!!
     //returns amount won for the PairPlus bet
     public static int evalPPWinnings(ArrayList<Card> hand, int bet){
         int handNum = evalHand(hand);
-        if(handNum == 2){
+        //straight flush
+        if(handNum == 1){
+            return bet * 40;
+        }
+        //three of a kind
+        else if(handNum == 2){
+            return bet * 30;
+        }
+        //straight
+        else if(handNum == 3){
+            return bet * 6;
+        }
+        //flush
+        else if(handNum == 4){
+            return bet * 3;
+        }
+        //pair
+        else if(handNum == 5){
             return bet;
         }
         else{
