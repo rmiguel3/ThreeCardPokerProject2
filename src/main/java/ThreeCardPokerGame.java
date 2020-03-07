@@ -1,4 +1,7 @@
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,26 +29,6 @@ public class ThreeCardPokerGame extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("Let's Play Three Card Poker!!!");
-
-		BorderPane defaultSceneBorderPane = new BorderPane();
-
-		Menu menu = new Menu("Options");
-
-		MenuItem exit = new MenuItem("Exit");
-		MenuItem freshStart = new MenuItem("Fresh Start");
-		MenuItem newLook = new Menu("New Look");
-
-		menu.getItems().add(exit);
-		menu.getItems().add(freshStart);
-		menu.getItems().add(newLook);
-
-		MenuBar bar = new MenuBar();
-
-		bar.getMenus().add(menu);
-
-		defaultSceneBorderPane.setTop(bar);
-
 		// Spades Image Objects:
 		Image spades2 = new Image("2S.png", 90, 150, true, true);
 		ImageView spades2View = new ImageView(spades2);
@@ -206,6 +189,29 @@ public class ThreeCardPokerGame extends Application {
 		Image diamondsAce = new Image("AD.png", 90, 150, true, true);
 		ImageView diamondsAceView = new ImageView(diamondsAce);
 
+		primaryStage.setTitle("Let's Play Three Card Poker!!!");
+
+		BorderPane defaultSceneBorderPane = new BorderPane();
+
+		Menu menu = new Menu("Options");
+
+		MenuItem exit = new MenuItem("Exit");
+		exit.setOnAction(e -> Platform.exit());
+		MenuItem freshStart = new MenuItem("Fresh Start");
+		MenuItem newLook = new Menu("New Look");
+
+		menu.getItems().add(exit);
+		menu.getItems().add(freshStart);
+		menu.getItems().add(newLook);
+
+		MenuBar bar = new MenuBar();
+
+		bar.getMenus().add(menu);
+
+		defaultSceneBorderPane.setTop(bar);
+
+
+
 
 		BackgroundImage myBI= new BackgroundImage(new Image("green background.jpg",1920,1080,true,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
 
@@ -231,10 +237,17 @@ public class ThreeCardPokerGame extends Application {
 
 		defaultSceneBorderPane.setCenter(pane);
 
-		Scene defaultScene = new Scene(defaultSceneBorderPane,1920,1200);
+		Scene defaultScene = new Scene(defaultSceneBorderPane,1500,1100);
 
 		primaryStage.setScene(defaultScene);
 		primaryStage.show();
+
+//		EventHandler<ActionEvent> handler1 = new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent event) {
+//				e -> Platform.exit();
+//			}
+//		}
 	}
 
 
