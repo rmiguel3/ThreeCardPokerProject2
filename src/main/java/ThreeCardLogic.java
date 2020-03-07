@@ -65,6 +65,7 @@ public class ThreeCardLogic {
         return 0;
     }
 
+    //Need to finish!!!
     //returns amount won for the PairPlus bet
     public static int evalPPWinnings(ArrayList<Card> hand, int bet){
         int handNum = evalHand(hand);
@@ -76,18 +77,49 @@ public class ThreeCardLogic {
         }
     }
 
+    //Need to finish!!!
     //compares hands between player and dealer returns a num depending on who won
     public static int compareHands(ArrayList<Card> dealer, ArrayList<Card> player){
         int dealerNum = evalHand(dealer);
         int playerNum = evalHand(player);
-        if(dealerNum > playerNum){
-            return 1;
+        ArrayList<Integer> playerVal = new ArrayList<Integer>();
+        ArrayList<Integer> dealerVal = new ArrayList<Integer>();
+
+        for(int i = 0; i < 3; i++){
+            playerVal.add(player.get(i).getValue());
+            dealerVal.add(dealer.get(i).getValue());
         }
-        else if(dealerNum < playerNum){
+        Collections.sort(playerVal);
+        Collections.sort(dealerVal);
+
+        //checking the conditions to see if dealer won
+        if(dealerNum > playerNum){
+            if(playerNum == 0) {
+                return 1;
+            }
             return 2;
         }
+        //checking the conditions to see if player won
+        else if(dealerNum < playerNum){
+            if(dealerNum == 0){
+                return 2;
+            }
+            return 1;
+        }
         else{
+            if((playerNum == 0) && (dealerNum == 0)){
+                if(playerVal.get(0) > dealerVal.get(0)){
+                    return 2;
+                }
+                else if(playerVal.get(0) < dealerVal.get(0)){
+                    return 1;
+                }
+                else{
+                    //do the same thing above but continue down below
+                }
+            }
+
             return 0;
         }
-    }
+    }//end of compareHands
 }
