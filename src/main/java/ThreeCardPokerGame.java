@@ -206,8 +206,6 @@ public class ThreeCardPokerGame extends Application {
 
 		HBox hbox = new HBox(100,heartsAceView, spadesAceView);
 
-
-
 		Pane pane = new Pane();
 		pane.getChildren().add(hbox);
 		hbox.relocate(500,600);
