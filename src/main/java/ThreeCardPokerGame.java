@@ -191,6 +191,30 @@ public class ThreeCardPokerGame extends Application {
 		Image purpleCardBack = new Image("purple_back.png", 90, 150, true, true);
 		ImageView purpleCardBackView = new ImageView(purpleCardBack);
 
+		Image purpleCardBack2 = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView2 = new ImageView(purpleCardBack2);
+
+		Image purpleCardBack3 = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView3 = new ImageView(purpleCardBack3);
+
+		Image purpleCardBack4 = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView4 = new ImageView(purpleCardBack4);
+
+		Image purpleCardBack5 = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView5 = new ImageView(purpleCardBack5);
+
+		Image purpleCardBack6 = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView6 = new ImageView(purpleCardBack6);
+
+		Image purpleCardBack7 = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView7 = new ImageView(purpleCardBack7);
+
+		Image purpleCardBack8 = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView8 = new ImageView(purpleCardBack8);
+
+		Image purpleCardBack9 = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView9 = new ImageView(purpleCardBack9);
+
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 
 		BorderPane defaultSceneBorderPane = new BorderPane();
@@ -215,9 +239,22 @@ public class ThreeCardPokerGame extends Application {
 
 		BackgroundImage myBI= new BackgroundImage(new Image("green background.jpg",1920,1080,true,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
 
-		HBox player1 = new HBox(10,clubs2View, spadesAceView, diamonds10View);
-		HBox player2 = new HBox(10,hearts2View, spades10View, diamondsKingView);
-		HBox dealer = new HBox(10,heartsAceView, clubsAceView, diamondsAceView);
+		HBox player1Card1 = new HBox(purpleCardBackView);
+		HBox player1Card2 = new HBox(purpleCardBackView2);
+		HBox player1Card3 = new HBox(purpleCardBackView3);
+
+		HBox player2Card1 = new HBox(purpleCardBackView4);
+		HBox player2Card2 = new HBox(purpleCardBackView5);
+		HBox player2Card3 = new HBox(purpleCardBackView6);
+
+		HBox dealerCard1 = new HBox(purpleCardBackView7);
+		HBox dealerCard2 = new HBox(purpleCardBackView8);
+		HBox dealerCard3 = new HBox(purpleCardBackView9);
+
+
+		HBox player1 = new HBox(10,player1Card1, player1Card2, player1Card3);
+		HBox player2 = new HBox(10,player2Card1, player2Card2, player2Card3);
+		HBox dealer = new HBox(10,dealerCard1, dealerCard2, dealerCard3);
 
 
 		Pane pane = new Pane();
