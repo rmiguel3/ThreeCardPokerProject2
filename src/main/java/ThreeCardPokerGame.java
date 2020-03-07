@@ -14,7 +14,9 @@ public class ThreeCardPokerGame extends Application {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		launch(args);
+		System.out.println("Welcome to Three Card Poker!\n");
+		System.out.println("Let's start");
+		//launch(args);
 	}
 
 	@Override
