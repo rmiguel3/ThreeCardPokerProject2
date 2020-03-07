@@ -77,7 +77,7 @@ public class ThreeCardLogic {
         }
     }
 
-    //Need to finish!!!
+
     //compares hands between player and dealer returns a num depending on who won
     public static int compareHands(ArrayList<Card> dealer, ArrayList<Card> player){
         int dealerNum = evalHand(dealer);
@@ -107,19 +107,29 @@ public class ThreeCardLogic {
             return 1;
         }
         else{
-            if((playerNum == 0) && (dealerNum == 0)){
-                if(playerVal.get(0) > dealerVal.get(0)){
+            if(playerVal.get(0) > dealerVal.get(0)){
+                return 2;
+            }
+            else if(playerVal.get(0) < dealerVal.get(0)){
+                return 1;
+            }
+            else{
+                if(playerVal.get(1) > dealerVal.get(1)){
                     return 2;
                 }
-                else if(playerVal.get(0) < dealerVal.get(0)){
+                else if(playerVal.get(1) < dealerVal.get(1)){
                     return 1;
                 }
                 else{
-                    //do the same thing above but continue down below
+                    if(playerVal.get(2) > dealerVal.get(2)){
+                        return 2;
+                    }
+                    else if(playerVal.get(2) < dealerVal.get(2)){
+                        return 1;
+                    }
+                    return 0;
                 }
             }
-
-            return 0;
         }
     }//end of compareHands
 }
