@@ -17,8 +17,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
-
 public class ThreeCardPokerGame extends Application {
 
 	public static void main(String[] args) {
@@ -189,6 +187,9 @@ public class ThreeCardPokerGame extends Application {
 		Image diamondsAce = new Image("AD.png", 90, 150, true, true);
 		ImageView diamondsAceView = new ImageView(diamondsAce);
 
+		Image purpleCardBack = new Image("purple_back.png", 90, 150, true, true);
+		ImageView purpleCardBackView = new ImageView(purpleCardBack);
+
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 
 		BorderPane defaultSceneBorderPane = new BorderPane();
@@ -209,8 +210,6 @@ public class ThreeCardPokerGame extends Application {
 		bar.getMenus().add(menu);
 
 		defaultSceneBorderPane.setTop(bar);
-
-
 
 
 		BackgroundImage myBI= new BackgroundImage(new Image("green background.jpg",1920,1080,true,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
@@ -245,7 +244,7 @@ public class ThreeCardPokerGame extends Application {
 //		EventHandler<ActionEvent> handler1 = new EventHandler<ActionEvent>() {
 //			@Override
 //			public void handle(ActionEvent event) {
-//				e -> Platform.exit();
+//
 //			}
 //		}
 	}
