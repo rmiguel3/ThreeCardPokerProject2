@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -13,16 +14,16 @@ import javafx.stage.Stage;
 public class ThreeCardPokerGame extends Application {
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to Three Card Poker!\n");
-		System.out.println("Let's start");
-		//launch(args);
+		//System.out.println("Welcome to Three Card Poker!\n");
+		//System.out.println("Let's start");
+		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 
-		BorderPane defaultScenePane = new BorderPane();
+		BorderPane defaultSceneBorderPane = new BorderPane();
 
 		Menu menu = new Menu("Options");
 
@@ -38,7 +39,7 @@ public class ThreeCardPokerGame extends Application {
 
 		bar.getMenus().add(menu);
 
-		defaultScenePane.setTop(bar);
+		defaultSceneBorderPane.setTop(bar);
 
 		// Spades Image Objects:
 		Image spades2 = new Image("2S.png", 125, 225, true, true);
@@ -205,12 +206,18 @@ public class ThreeCardPokerGame extends Application {
 
 		HBox hbox = new HBox(100,heartsAceView, spadesAceView);
 
+
+
+		Pane pane = new Pane();
+		pane.getChildren().add(hbox);
+		hbox.relocate(500,600);
+
 		Background background = new Background(myBI);
-		hbox.setBackground(background);
+		pane.setBackground(background);
 
-		defaultScenePane.setCenter(hbox);
+		defaultSceneBorderPane.setCenter(pane);
 
-		Scene defaultScene = new Scene(defaultScenePane,1920,1200);
+		Scene defaultScene = new Scene(defaultSceneBorderPane,1920,1200);
 
 		primaryStage.setScene(defaultScene);
 		primaryStage.show();
