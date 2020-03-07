@@ -86,7 +86,7 @@ public class ThreeCardLogic {
         }
         //pair
         else if(handNum == 5){
-            return bet;
+            return bet * 2;
         }
         else{
             return 0;

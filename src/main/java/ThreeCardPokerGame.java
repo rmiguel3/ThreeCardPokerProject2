@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Menu;
@@ -220,9 +221,41 @@ public class ThreeCardPokerGame extends Application {
 
 
 		Pane pane = new Pane();
-		TextField txtOne = new TextField();
-		txtOne.setPrefWidth(250);
-		defaultSceneBorderPane.setLeft(txtOne);
+		TextField gameNotes = new TextField();
+		gameNotes.setPrefWidth(250);
+		defaultSceneBorderPane.setLeft(gameNotes);
+
+		TextField playerOneBet = new TextField();
+		TextField playerOnePP = new TextField();
+		Button playerOneBtn = new Button();
+		Button playerOneBtn2 = new Button();
+		playerOneBtn.setText("Ante/Play Bet");
+		playerOneBtn2.setText("Pair Plus Bet");
+		playerOneBet.setPrefWidth(100);
+		playerOnePP.setPrefWidth(100);
+
+		HBox playerOneBets = new HBox(100, playerOneBet, playerOnePP);
+		HBox playerOneBtns = new HBox(100, playerOneBtn, playerOneBtn2);
+		pane.getChildren().add(playerOneBets);
+		pane.getChildren().add(playerOneBtns);
+		playerOneBtns.relocate(100,680);
+		playerOneBets.relocate(100, 650);
+
+		TextField playerTwoBet = new TextField();
+		TextField playerTwoPP = new TextField();
+		Button playerTwoBtn = new Button();
+		Button playerTwoBtn2 = new Button();
+		playerTwoBtn.setText("Ante/Play Bet");
+		playerTwoBtn2.setText("Pair Plus Bet");
+		playerTwoBet.setPrefWidth(100);
+		playerTwoPP.setPrefWidth(100);
+
+		HBox playerTwoBets = new HBox(100, playerTwoBet, playerTwoPP);
+		HBox playerTwoBtns = new HBox(100, playerTwoBtn, playerTwoBtn2);
+		pane.getChildren().add(playerTwoBets);
+		pane.getChildren().add(playerTwoBtns);
+		playerTwoBtns.relocate(700,680);
+		playerTwoBets.relocate(700, 650);
 
 		pane.getChildren().add(player1);
 		pane.getChildren().add(player2);
