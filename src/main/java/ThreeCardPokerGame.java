@@ -414,9 +414,48 @@ public class ThreeCardPokerGame extends Application {
 			}
 		});
 
-		original.setOnAction(start);
+		EventHandler<ActionEvent> startOfGame = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				player1Cards.getChildren().clear();
+				player2Cards.getChildren().clear();
+				dealerCards.getChildren().clear();
+
+				//player 1's card backs
+				HBox player1Card1 = new HBox(purpleCardBackView);
+				HBox player1Card2 = new HBox(purpleCardBackView2);
+				HBox player1Card3 = new HBox(purpleCardBackView3);
+
+				//player 2's card backs
+				HBox player2Card1 = new HBox(purpleCardBackView4);
+				HBox player2Card2 = new HBox(purpleCardBackView5);
+				HBox player2Card3 = new HBox(purpleCardBackView6);
+
+				//Dealers's card backs
+				HBox dealerCard1 = new HBox(purpleCardBackView7);
+				HBox dealerCard2 = new HBox(purpleCardBackView8);
+				HBox dealerCard3 = new HBox(purpleCardBackView9);
+
+				//Adding the cards to each of their respected HBox
+				HBox player1Cards = new HBox(55,player1Card1, player1Card2, player1Card3);
+				HBox player2Cards = new HBox(55,player2Card1, player2Card2, player2Card3);
+				HBox dealerCards = new HBox(55,dealerCard1, dealerCard2, dealerCard3);
 
 
+				player1Cards.relocate(100,500);
+				player2Cards.relocate(700, 500);
+				dealerCards.relocate(400, 100);
+
+				pane.getChildren().add(player1Cards);
+				pane.getChildren().add(player2Cards);
+				pane.getChildren().add(dealerCards);
+
+				BackgroundImage myBI= new BackgroundImage(greenBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
+				Background background = new Background(myBI);
+				pane.setBackground(background);
+			};
+		};
+		original.setOnAction(startOfGame);
 
 		Background background = new Background(myBI);
 		pane.setBackground(background);
