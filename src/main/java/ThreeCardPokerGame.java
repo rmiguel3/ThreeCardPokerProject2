@@ -7,6 +7,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Menu;
@@ -290,6 +292,8 @@ public class ThreeCardPokerGame extends Application {
 		defaultSceneBorderPane.setLeft(gameNotes);
 
 		//setting the textbox and buttons for player 1
+		Text playerOne = new Text(200, 450, "Player 1");
+		playerOne.setFont(Font.font ("Verdana", 30));
 		TextField playerOneBet = new TextField();
 		TextField playerOnePP = new TextField();
 		Button playerOneBtn = new Button();
@@ -307,6 +311,8 @@ public class ThreeCardPokerGame extends Application {
 		playerOneBets.relocate(100, 650);
 
 		//setting the textbox and buttons for player 2
+		Text playerTwo = new Text(800, 450, "Player 2");
+		playerTwo.setFont(Font.font ("Verdana", 30));
 		TextField playerTwoBet = new TextField();
 		TextField playerTwoPP = new TextField();
 		Button playerTwoBtn = new Button();
@@ -323,10 +329,16 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoBtns.relocate(700,680);
 		playerTwoBets.relocate(700, 650);
 
+		Text dealerTxt = new Text(500, 300, "Dealer");
+		dealerTxt.setFont(Font.font ("Verdana", 30));
+
 		//adding the players and dealers cards to the pane
 		pane.getChildren().add(player1);
 		pane.getChildren().add(player2);
 		pane.getChildren().add(dealer);
+		pane.getChildren().add(playerTwo);
+		pane.getChildren().add(playerOne);
+		pane.getChildren().add(dealerTxt);
 		player1.relocate(100,500);
 		player2.relocate(700, 500);
 		dealer.relocate(400, 100);
@@ -385,7 +397,7 @@ public class ThreeCardPokerGame extends Application {
 		Image Beck9 = new Image("HallenBeck.JPG", 90, 150, true, true);
 		ImageView BeckView9 = new ImageView(Beck9);
 
-		Menu menu = new Menu();
+		Menu menu = new Menu("Options");
 
 		//adding different types of options
 		MenuItem exit = new MenuItem("Exit");
@@ -394,6 +406,7 @@ public class ThreeCardPokerGame extends Application {
 		Menu newLook = new Menu("New Look");
 		MenuItem cozmo = new MenuItem("Cozmo/Hallenbeck Board");
 		MenuItem original = new MenuItem("Default style");
+		//original.setOnAction(e -> );
 
 		menu.getItems().add(exit);
 		menu.getItems().add(freshStart);
@@ -404,6 +417,7 @@ public class ThreeCardPokerGame extends Application {
 		MenuBar bar = new MenuBar();
 
 		bar.getMenus().add(menu);
+		defaultSceneBorderPane.setTop(bar);
 
 		//player 1's card backs
 		HBox player1Card1 = new HBox(BeckView);
@@ -429,7 +443,7 @@ public class ThreeCardPokerGame extends Application {
 		Pane pane = new Pane();
 		TextField gameNotes = new TextField();
 		gameNotes.setPrefWidth(250);
-		//defaultSceneBorderPane.setLeft(gameNotes);
+		defaultSceneBorderPane.setLeft(gameNotes);
 
 		//setting the textbox and buttons for player 1
 		TextField playerOneBet = new TextField();
@@ -474,11 +488,14 @@ public class ThreeCardPokerGame extends Application {
 		dealer.relocate(400, 100);
 
 		Background background = new Background(myBI);
+		pane.setBackground(background);
+		defaultSceneBorderPane.setCenter(pane);
 
-		return new Scene(pane, 1500,1100);
+
+		return new Scene(defaultSceneBorderPane, 1500,1100);
 	}
 
-	//public Scene createOriginalScene(){}
+	//public Scene createOriginalScene(){ }
 
 
 }
