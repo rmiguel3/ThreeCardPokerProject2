@@ -303,4 +303,49 @@ class ThreeCardTest {
 		assertEquals(1, ThreeCardLogic.compareHands(dealerHand, playersHand), "player is not losing");
 	}
 
+	@Test
+	void testPPWinnings(){
+		ArrayList<Card> pairCard = new ArrayList<Card>();
+		pairCard.add(new Card('H', 5));
+		pairCard.add(new Card('C', 5));
+		pairCard.add(new Card('S', 2));
+		assertEquals(10, ThreeCardLogic.evalPPWinnings(pairCard, 5));
+	}
+
+	@Test
+	void testPPWinnings2(){
+		ArrayList<Card> straightCard = new ArrayList<Card>();
+		straightCard.add(new Card('H', 8));
+		straightCard.add(new Card('S', 7));
+		straightCard.add(new Card('C', 6));
+		assertEquals(30, ThreeCardLogic.evalPPWinnings(straightCard, 5));
+	}
+
+	@Test
+	void testPPWinnings3(){
+		ArrayList<Card> flushCard = new ArrayList<Card>();
+		flushCard.add(new Card('H', 8));
+		flushCard.add(new Card('H', 5));
+		flushCard.add(new Card('H', 2));
+		assertEquals(15, ThreeCardLogic.evalPPWinnings(flushCard, 5));
+	}
+
+	@Test
+	void testPPWinnings4(){
+		ArrayList<Card> threePairCard = new ArrayList<Card>();
+		threePairCard.add(new Card('H', 11));
+		threePairCard.add(new Card('S', 11));
+		threePairCard.add(new Card('C', 11));
+		assertEquals(150, ThreeCardLogic.evalPPWinnings(threePairCard, 5));
+	}
+
+	@Test
+	void testPPWinnings5(){
+		ArrayList<Card> straightFlushCard = new ArrayList<Card>();
+		straightFlushCard.add(new Card('H', 7));
+		straightFlushCard.add(new Card('H', 9));
+		straightFlushCard.add(new Card('H', 8));
+		assertEquals(200, ThreeCardLogic.evalPPWinnings(straightFlushCard, 5));
+	}
+
 }

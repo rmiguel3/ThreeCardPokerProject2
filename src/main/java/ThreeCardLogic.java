@@ -29,6 +29,17 @@ public class ThreeCardLogic {
         return false;
     }
 
+    //checks the pairs to see which one won
+    private static int comparePair(ArrayList<Integer> dealerVal, ArrayList<Integer> playerVal){
+        if(dealerVal.get(1) > playerVal.get(1)){
+            return 1;
+        }
+        else if(dealerVal.get(1) < playerVal.get(1)){
+            return 2;
+        }
+        return 0;
+    }
+
     //checks to see if we have a pair or Three of a kind
     private static int pairOrThree(ArrayList<Card> hand){
         ArrayList<Integer> cardVal = new ArrayList<Integer>();
@@ -123,7 +134,12 @@ public class ThreeCardLogic {
             return 1;
         }
         else{
-            if(playerVal.get(0) > dealerVal.get(0)){
+            if((dealerNum == 5) && (playerNum == 5)){
+                if(comparePair(dealerVal, playerVal) != 0){
+                    return comparePair(dealerVal, playerVal);
+                }
+            }
+            else if(playerVal.get(0) > dealerVal.get(0)){
                 return 2;
             }
             else if(playerVal.get(0) < dealerVal.get(0)){
@@ -147,5 +163,6 @@ public class ThreeCardLogic {
                 }
             }
         }
+        return 0;
     }//end of compareHands
 }
