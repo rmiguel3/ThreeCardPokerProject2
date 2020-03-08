@@ -47,20 +47,20 @@ public class ThreeCardLogic {
 
     //evaluates an individuals hand and returns an int depending on the hand
     public static int evalHand(ArrayList<Card> hand){
-        if(pairOrThree(hand) == 2){
-            return 5;
-        }
-        else if(flush(hand)){
-            return 4;
-        }
-        else if(straight(hand)){
-            return 3;
+        if((flush(hand)) && (straight(hand))){
+            return 1;
         }
         else if(pairOrThree(hand) == 3){
             return 2;
         }
-        else if((straight(hand)) && (flush(hand))){
-            return 1;
+        else if(straight(hand)){
+            return 3;
+        }
+        else if(flush(hand)){
+            return 4;
+        }
+        else if(pairOrThree(hand) == 2){
+            return 5;
         }
         return 0;
     }
