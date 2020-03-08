@@ -264,12 +264,14 @@ public class ThreeCardPokerGame extends Application {
 		//adding different types of options
 		MenuItem exit = new MenuItem("Exit");
 		exit.setOnAction(e -> Platform.exit());
-		MenuItem freshStart = new MenuItem("Fresh Start");
-		Menu newLook = new Menu("New Look");
-		MenuItem cozmo = new MenuItem("Cozmo/Hallenbeck Board");
-		MenuItem original = new MenuItem("Default style");
 
-		primaryStage.show();
+		MenuItem freshStart = new MenuItem("Fresh Start");
+
+		Menu newLook = new Menu("New Look");
+		MenuItem cozmo = new MenuItem("Hallenbeck");
+		MenuItem original = new MenuItem("Default");
+
+
 
 		menu.getItems().add(exit);
 		menu.getItems().add(freshStart);
@@ -301,9 +303,9 @@ public class ThreeCardPokerGame extends Application {
 		HBox dealerCard3 = new HBox(purpleCardBackView9);
 
 		//Adding the cards to each of their respected HBox
-		HBox player1Cards = new HBox(10,player1Card1, player1Card2, player1Card3);
-		HBox player2Cards = new HBox(10,player2Card1, player2Card2, player2Card3);
-		HBox dealerCards = new HBox(10,dealerCard1, dealerCard2, dealerCard3);
+		HBox player1Cards = new HBox(55,player1Card1, player1Card2, player1Card3);
+		HBox player2Cards = new HBox(55,player2Card1, player2Card2, player2Card3);
+		HBox dealerCards = new HBox(55,dealerCard1, dealerCard2, dealerCard3);
 
 
 		Pane pane = new Pane();
@@ -327,7 +329,7 @@ public class ThreeCardPokerGame extends Application {
 		playerOnePP.setPrefWidth(100);
 
 		HBox playerOneBets = new HBox(10, playerOneBet, playerOnePP);
-		HBox playerOneBtns = new HBox(10, playerOneBtn, playerOneBtn2, playerOneFold);
+		HBox playerOneBtns = new HBox(35, playerOneBtn, playerOneBtn2, playerOneFold);
 		pane.getChildren().add(playerOneBets);
 		pane.getChildren().add(playerOneBtns);
 		playerOneBtns.relocate(100,680);
@@ -349,7 +351,7 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoPP.setPrefWidth(100);
 
 		HBox playerTwoBets = new HBox(10, playerTwoBet, playerTwoPP);
-		HBox playerTwoBtns = new HBox(10, playerTwoBtn, playerTwoBtn2, playerTwoFold);
+		HBox playerTwoBtns = new HBox(35, playerTwoBtn, playerTwoBtn2, playerTwoFold);
 		pane.getChildren().add(playerTwoBets);
 		pane.getChildren().add(playerTwoBtns);
 		playerTwoBtns.relocate(700,680);
@@ -392,10 +394,10 @@ public class ThreeCardPokerGame extends Application {
 				HBox dealerCard2 = new HBox(BeckView8);
 				HBox dealerCard3 = new HBox(BeckView9);
 
-				//Adding the cards to each of their respected HBox
-				HBox player1Cards = new HBox(10,player1Card1, player1Card2, player1Card3);
-				HBox player2Cards = new HBox(10,player2Card1, player2Card2, player2Card3);
-				HBox dealerCards = new HBox(10,dealerCard1, dealerCard2, dealerCard3);
+				//Adding the cards to each of their respective HBox
+				HBox player1Cards = new HBox(1000,player1Card1, player1Card2, player1Card3);
+				HBox player2Cards = new HBox(1000,player2Card1, player2Card2, player2Card3);
+				HBox dealerCards = new HBox(1000,dealerCard1, dealerCard2, dealerCard3);
 
 
 				player1Cards.relocate(100,500);
@@ -406,53 +408,13 @@ public class ThreeCardPokerGame extends Application {
 				pane.getChildren().add(player2Cards);
 				pane.getChildren().add(dealerCards);
 
-				BackgroundImage myBI= new BackgroundImage(cozmoPic, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
+				BackgroundImage myBI= new BackgroundImage(cozmoPic, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
 				Background background = new Background(myBI);
 				pane.setBackground(background);
 			}
 		});
 
-		original.setOnAction(new EventHandler<ActionEvent>(){
-			@Override
-			public void handle(ActionEvent event){
-				player1Cards.getChildren().clear();
-				player2Cards.getChildren().clear();
-				dealerCards.getChildren().clear();
-
-				//player 1's card backs
-				HBox player1Card1 = new HBox(purpleCardBackView);
-				HBox player1Card2 = new HBox(purpleCardBackView2);
-				HBox player1Card3 = new HBox(purpleCardBackView3);
-
-				//player 2's card backs
-				HBox player2Card1 = new HBox(purpleCardBackView4);
-				HBox player2Card2 = new HBox(purpleCardBackView5);
-				HBox player2Card3 = new HBox(purpleCardBackView6);
-
-				//Dealers's card backs
-				HBox dealerCard1 = new HBox(purpleCardBackView7);
-				HBox dealerCard2 = new HBox(purpleCardBackView8);
-				HBox dealerCard3 = new HBox(purpleCardBackView9);
-
-				//Adding the cards to each of their respected HBox
-				HBox player1Cards = new HBox(10,player1Card1, player1Card2, player1Card3);
-				HBox player2Cards = new HBox(10,player2Card1, player2Card2, player2Card3);
-				HBox dealerCards = new HBox(10,dealerCard1, dealerCard2, dealerCard3);
-
-
-				player1Cards.relocate(100,500);
-				player2Cards.relocate(700, 500);
-				dealerCards.relocate(400, 100);
-
-				pane.getChildren().add(player1Cards);
-				pane.getChildren().add(player2Cards);
-				pane.getChildren().add(dealerCards);
-
-				BackgroundImage myBI= new BackgroundImage(greenBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
-				Background background = new Background(myBI);
-				pane.setBackground(background);
-			}
-		});
+		original.setOnAction(start);
 
 
 
@@ -466,10 +428,45 @@ public class ThreeCardPokerGame extends Application {
 		primaryStage.setScene(defaultScene);
 		primaryStage.show();
 
-//		EventHandler<ActionEvent> handler1 = new EventHandler<ActionEvent>() {
+//		EventHandler<ActionEvent> start = new EventHandler<ActionEvent>() {
 //			@Override
 //			public void handle(ActionEvent event) {
+//              player1Cards.getChildren().clear();
+//				player2Cards.getChildren().clear();
+//				dealerCards.getChildren().clear();
 //
+//				//player 1's card backs
+//				HBox player1Card1 = new HBox(purpleCardBackView);
+//				HBox player1Card2 = new HBox(purpleCardBackView2);
+//				HBox player1Card3 = new HBox(purpleCardBackView3);
+//
+//				//player 2's card backs
+//				HBox player2Card1 = new HBox(purpleCardBackView4);
+//				HBox player2Card2 = new HBox(purpleCardBackView5);
+//				HBox player2Card3 = new HBox(purpleCardBackView6);
+//
+//				//Dealers's card backs
+//				HBox dealerCard1 = new HBox(purpleCardBackView7);
+//				HBox dealerCard2 = new HBox(purpleCardBackView8);
+//				HBox dealerCard3 = new HBox(purpleCardBackView9);
+//
+//				//Adding the cards to each of their respected HBox
+//				HBox player1Cards = new HBox(55,player1Card1, player1Card2, player1Card3);
+//				HBox player2Cards = new HBox(55,player2Card1, player2Card2, player2Card3);
+//				HBox dealerCards = new HBox(55,dealerCard1, dealerCard2, dealerCard3);
+//
+//
+//				player1Cards.relocate(100,500);
+//				player2Cards.relocate(700, 500);
+//				dealerCards.relocate(400, 100);
+//
+//				pane.getChildren().add(player1Cards);
+//				pane.getChildren().add(player2Cards);
+//				pane.getChildren().add(dealerCards);
+//
+//				BackgroundImage myBI= new BackgroundImage(greenBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
+//				Background background = new Background(myBI);
+//				pane.setBackground(background);
 //			}
 //		}
 	}//end of start method
