@@ -1,7 +1,6 @@
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -33,8 +32,6 @@ public class ThreeCardPokerGame extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
-		HashMap<String, Scene> sceneMap = new HashMap<String,Scene>();
 
 		// S Image Objects:
 		Image S2 = new Image("2S.png", 90, 150, true, true);
@@ -224,158 +221,11 @@ public class ThreeCardPokerGame extends Application {
 		Image purpleCardBack9 = new Image("purple_back.png", 90, 150, true, true);
 		ImageView purpleCardBackView9 = new ImageView(purpleCardBack9);
 
-		primaryStage.setTitle("Let's Play Three Card Poker!!!");
+		Image greenBackground = new Image("green background.jpg",1920,1080,true,true);
 
-		BorderPane defaultSceneBorderPane = new BorderPane();
-		PauseTransition pause = new PauseTransition(Duration.seconds(2));
+		Image cozmoPic = new Image("cozmo.jpg",1920,1080,true,true);
 
-		//creating the options drop down menu
-		Menu menu = new Menu("Options");
-
-		//adding different types of options
-		MenuItem exit = new MenuItem("Exit");
-		exit.setOnAction(e -> Platform.exit());
-		MenuItem freshStart = new MenuItem("Fresh Start");
-		Menu newLook = new Menu("New Look");
-		MenuItem cozmo = new MenuItem("Cozmo/Hallenbeck Board");
-		MenuItem original = new MenuItem("Default style");
-
-		//pause for 3 seconds then switch scene from picture buttons to original layout
-		pause.setOnFinished(e->primaryStage.setScene(sceneMap.get("scene")));
-
-		//two scenes returned from two methods; put in hashmap
-		//sceneMap.put("scene", createOriginalScene());
-		sceneMap.put("pics", createPicScene());
-
-		primaryStage.setScene(sceneMap.get("scene"));
-		primaryStage.show();
-
-		menu.getItems().add(exit);
-		menu.getItems().add(freshStart);
-		menu.getItems().add(newLook);
-		newLook.getItems().add(cozmo);
-		newLook.getItems().add(original);
-
-		MenuBar bar = new MenuBar();
-
-		bar.getMenus().add(menu);
-
-		defaultSceneBorderPane.setTop(bar);
-
-
-		BackgroundImage myBI= new BackgroundImage(new Image("green background.jpg",1920,1080,true,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
-
-		//player 1's card backs
-		HBox player1Card1 = new HBox(purpleCardBackView);
-		HBox player1Card2 = new HBox(purpleCardBackView2);
-		HBox player1Card3 = new HBox(purpleCardBackView3);
-
-		//player 2's card backs
-		HBox player2Card1 = new HBox(purpleCardBackView4);
-		HBox player2Card2 = new HBox(purpleCardBackView5);
-		HBox player2Card3 = new HBox(purpleCardBackView6);
-
-		//Dealers's card backs
-		HBox dealerCard1 = new HBox(purpleCardBackView7);
-		HBox dealerCard2 = new HBox(purpleCardBackView8);
-		HBox dealerCard3 = new HBox(purpleCardBackView9);
-
-		//Adding the cards to each of their respected HBox
-		HBox player1 = new HBox(10,player1Card1, player1Card2, player1Card3);
-		HBox player2 = new HBox(10,player2Card1, player2Card2, player2Card3);
-		HBox dealer = new HBox(10,dealerCard1, dealerCard2, dealerCard3);
-
-
-		Pane pane = new Pane();
-		TextField gameNotes = new TextField();
-		gameNotes.setPrefWidth(250);
-		defaultSceneBorderPane.setLeft(gameNotes);
-
-		//setting the textbox and buttons for player 1
-		Text playerOne = new Text(200, 450, "Player 1");
-		playerOne.setFont(Font.font ("Verdana", 30));
-		TextField playerOneBet = new TextField();
-		TextField playerOnePP = new TextField();
-		Button playerOneBtn = new Button();
-		Button playerOneFold = new Button();
-		Button playerOneBtn2 = new Button();
-		playerOneFold.setText("Fold");
-		playerOneFold.setPrefWidth(100);
-		playerOneBtn.setText("Ante/Play Bet");
-		playerOneBtn2.setText("Pair Plus Bet");
-		playerOneBet.setPrefWidth(100);
-		playerOnePP.setPrefWidth(100);
-
-		HBox playerOneBets = new HBox(10, playerOneBet, playerOnePP);
-		HBox playerOneBtns = new HBox(10, playerOneBtn, playerOneBtn2, playerOneFold);
-		pane.getChildren().add(playerOneBets);
-		pane.getChildren().add(playerOneBtns);
-		playerOneBtns.relocate(100,680);
-		playerOneBets.relocate(100, 650);
-
-		//setting the textbox and buttons for player 2
-		Text playerTwo = new Text(800, 450, "Player 2");
-		playerTwo.setFont(Font.font ("Verdana", 30));
-		TextField playerTwoBet = new TextField();
-		TextField playerTwoPP = new TextField();
-		Button playerTwoBtn = new Button();
-		Button playerTwoBtn2 = new Button();
-		Button playerTwoFold = new Button();
-		playerTwoFold.setText("Fold");
-		playerTwoFold.setPrefWidth(100);
-		playerTwoBtn.setText("Ante/Play Bet");
-		playerTwoBtn2.setText("Pair Plus Bet");
-		playerTwoBet.setPrefWidth(100);
-		playerTwoPP.setPrefWidth(100);
-
-		HBox playerTwoBets = new HBox(10, playerTwoBet, playerTwoPP);
-		HBox playerTwoBtns = new HBox(10, playerTwoBtn, playerTwoBtn2, playerTwoFold);
-		pane.getChildren().add(playerTwoBets);
-		pane.getChildren().add(playerTwoBtns);
-		playerTwoBtns.relocate(700,680);
-		playerTwoBets.relocate(700, 650);
-
-		Text dealerTxt = new Text(500, 300, "Dealer");
-		dealerTxt.setFont(Font.font ("Verdana", 30));
-
-		//adding the players and dealers cards to the pane
-		pane.getChildren().add(player1);
-		pane.getChildren().add(player2);
-		pane.getChildren().add(dealer);
-		pane.getChildren().add(playerTwo);
-		pane.getChildren().add(playerOne);
-		pane.getChildren().add(dealerTxt);
-		player1.relocate(100,500);
-		player2.relocate(700, 500);
-		dealer.relocate(400, 100);
-
-		Background background = new Background(myBI);
-		pane.setBackground(background);
-
-		defaultSceneBorderPane.setCenter(pane);
-
-		Scene defaultScene = new Scene(defaultSceneBorderPane,1500,1100);
-
-		primaryStage.setScene(defaultScene);
-		primaryStage.show();
-
-		//original.setOnAction(e -> primaryStage.setScene(defaultScene));
-		cozmo.setOnAction(e -> primaryStage.setScene(createPicScene()));
-
-//		EventHandler<ActionEvent> handler1 = new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent event) {
-//
-//			}
-//		}
-	}//end of start method
-
-
-	//method to create second scene with clickable buttons
-	public Scene createPicScene(){
-		BorderPane defaultSceneBorderPane = new BorderPane();
-		BackgroundImage myBI = new BackgroundImage(new Image("cozmo.jpg",1920,1080,true,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
-
+		//Hallenbeck images
 		Image Beck = new Image("HallenBeck.JPG", 90, 150, true, true);
 		ImageView BeckView = new ImageView(Beck);
 
@@ -403,6 +253,12 @@ public class ThreeCardPokerGame extends Application {
 		Image Beck9 = new Image("HallenBeck.JPG", 90, 150, true, true);
 		ImageView BeckView9 = new ImageView(Beck9);
 
+		primaryStage.setTitle("Let's Play Three Card Poker!!!");
+
+		BorderPane defaultSceneBorderPane = new BorderPane();
+		PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
+		//creating the options drop down menu
 		Menu menu = new Menu("Options");
 
 		//adding different types of options
@@ -412,7 +268,8 @@ public class ThreeCardPokerGame extends Application {
 		Menu newLook = new Menu("New Look");
 		MenuItem cozmo = new MenuItem("Cozmo/Hallenbeck Board");
 		MenuItem original = new MenuItem("Default style");
-		//original.setOnAction(e -> );
+
+		primaryStage.show();
 
 		menu.getItems().add(exit);
 		menu.getItems().add(freshStart);
@@ -423,27 +280,30 @@ public class ThreeCardPokerGame extends Application {
 		MenuBar bar = new MenuBar();
 
 		bar.getMenus().add(menu);
+
 		defaultSceneBorderPane.setTop(bar);
 
+		BackgroundImage myBI= new BackgroundImage(greenBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
+
 		//player 1's card backs
-		HBox player1Card1 = new HBox(BeckView);
-		HBox player1Card2 = new HBox(BeckView2);
-		HBox player1Card3 = new HBox(BeckView3);
+		HBox player1Card1 = new HBox(purpleCardBackView);
+		HBox player1Card2 = new HBox(purpleCardBackView2);
+		HBox player1Card3 = new HBox(purpleCardBackView3);
 
 		//player 2's card backs
-		HBox player2Card1 = new HBox(BeckView4);
-		HBox player2Card2 = new HBox(BeckView5);
-		HBox player2Card3 = new HBox(BeckView6);
+		HBox player2Card1 = new HBox(purpleCardBackView4);
+		HBox player2Card2 = new HBox(purpleCardBackView5);
+		HBox player2Card3 = new HBox(purpleCardBackView6);
 
 		//Dealers's card backs
-		HBox dealerCard1 = new HBox(BeckView7);
-		HBox dealerCard2 = new HBox(BeckView8);
-		HBox dealerCard3 = new HBox(BeckView9);
+		HBox dealerCard1 = new HBox(purpleCardBackView7);
+		HBox dealerCard2 = new HBox(purpleCardBackView8);
+		HBox dealerCard3 = new HBox(purpleCardBackView9);
 
 		//Adding the cards to each of their respected HBox
-		HBox player1 = new HBox(10,player1Card1, player1Card2, player1Card3);
-		HBox player2 = new HBox(10,player2Card1, player2Card2, player2Card3);
-		HBox dealer = new HBox(10,dealerCard1, dealerCard2, dealerCard3);
+		HBox player1Cards = new HBox(10,player1Card1, player1Card2, player1Card3);
+		HBox player2Cards = new HBox(10,player2Card1, player2Card2, player2Card3);
+		HBox dealerCards = new HBox(10,dealerCard1, dealerCard2, dealerCard3);
 
 
 		Pane pane = new Pane();
@@ -452,56 +312,125 @@ public class ThreeCardPokerGame extends Application {
 		defaultSceneBorderPane.setLeft(gameNotes);
 
 		//setting the textbox and buttons for player 1
+		Text playerOneTxt = new Text(200, 450, "Player 1");
+		playerOneTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerOneBet = new TextField();
 		TextField playerOnePP = new TextField();
 		Button playerOneBtn = new Button();
+		Button playerOneFold = new Button();
 		Button playerOneBtn2 = new Button();
+		playerOneFold.setText("Fold");
+		playerOneFold.setPrefWidth(100);
 		playerOneBtn.setText("Ante/Play Bet");
 		playerOneBtn2.setText("Pair Plus Bet");
 		playerOneBet.setPrefWidth(100);
 		playerOnePP.setPrefWidth(100);
 
-		HBox playerOneBets = new HBox(100, playerOneBet, playerOnePP);
-		HBox playerOneBtns = new HBox(100, playerOneBtn, playerOneBtn2);
+		HBox playerOneBets = new HBox(10, playerOneBet, playerOnePP);
+		HBox playerOneBtns = new HBox(10, playerOneBtn, playerOneBtn2, playerOneFold);
 		pane.getChildren().add(playerOneBets);
 		pane.getChildren().add(playerOneBtns);
 		playerOneBtns.relocate(100,680);
 		playerOneBets.relocate(100, 650);
 
 		//setting the textbox and buttons for player 2
+		Text playerTwoTxt = new Text(800, 450, "Player 2");
+		playerTwoTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerTwoBet = new TextField();
 		TextField playerTwoPP = new TextField();
 		Button playerTwoBtn = new Button();
 		Button playerTwoBtn2 = new Button();
+		Button playerTwoFold = new Button();
+		playerTwoFold.setText("Fold");
+		playerTwoFold.setPrefWidth(100);
 		playerTwoBtn.setText("Ante/Play Bet");
 		playerTwoBtn2.setText("Pair Plus Bet");
 		playerTwoBet.setPrefWidth(100);
 		playerTwoPP.setPrefWidth(100);
 
-		HBox playerTwoBets = new HBox(100, playerTwoBet, playerTwoPP);
-		HBox playerTwoBtns = new HBox(100, playerTwoBtn, playerTwoBtn2);
+		HBox playerTwoBets = new HBox(10, playerTwoBet, playerTwoPP);
+		HBox playerTwoBtns = new HBox(10, playerTwoBtn, playerTwoBtn2, playerTwoFold);
 		pane.getChildren().add(playerTwoBets);
 		pane.getChildren().add(playerTwoBtns);
 		playerTwoBtns.relocate(700,680);
 		playerTwoBets.relocate(700, 650);
 
+		Text dealerTxt = new Text(500, 300, "Dealer");
+		dealerTxt.setFont(Font.font ("Comic Sans", 30));
+
 		//adding the players and dealers cards to the pane
-		pane.getChildren().add(player1);
-		pane.getChildren().add(player2);
-		pane.getChildren().add(dealer);
-		player1.relocate(100,500);
-		player2.relocate(700, 500);
-		dealer.relocate(400, 100);
+		pane.getChildren().add(player1Cards);
+		pane.getChildren().add(player2Cards);
+		pane.getChildren().add(dealerCards);
+		pane.getChildren().add(playerTwoTxt);
+		pane.getChildren().add(playerOneTxt);
+		pane.getChildren().add(dealerTxt);
+
+		player1Cards.relocate(100,500);
+		player2Cards.relocate(700, 500);
+		dealerCards.relocate(400, 100);
+
+		cozmo.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				player1Cards.getChildren().clear();
+				player2Cards.getChildren().clear();
+				dealerCards.getChildren().clear();
+
+				//player 1's card backs
+				HBox player1Card1 = new HBox(BeckView);
+				HBox player1Card2 = new HBox(BeckView2);
+				HBox player1Card3 = new HBox(BeckView3);
+
+				//player 2's card backs
+				HBox player2Card1 = new HBox(BeckView4);
+				HBox player2Card2 = new HBox(BeckView5);
+				HBox player2Card3 = new HBox(BeckView6);
+
+				//Dealers's card backs
+				HBox dealerCard1 = new HBox(BeckView7);
+				HBox dealerCard2 = new HBox(BeckView8);
+				HBox dealerCard3 = new HBox(BeckView9);
+
+				//Adding the cards to each of their respected HBox
+				HBox player1 = new HBox(10,player1Card1, player1Card2, player1Card3);
+				HBox player2 = new HBox(10,player2Card1, player2Card2, player2Card3);
+				HBox dealer = new HBox(10,dealerCard1, dealerCard2, dealerCard3);
+
+
+				player1.relocate(100,500);
+				player2.relocate(700, 500);
+				dealer.relocate(400, 100);
+
+				pane.getChildren().add(player1);
+				pane.getChildren().add(player2);
+				pane.getChildren().add(dealer);
+
+				BackgroundImage myBI= new BackgroundImage(cozmoPic, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
+				Background background = new Background(myBI);
+				pane.setBackground(background);
+
+			}
+		});
 
 		Background background = new Background(myBI);
 		pane.setBackground(background);
+
 		defaultSceneBorderPane.setCenter(pane);
 
+		Scene defaultScene = new Scene(defaultSceneBorderPane,1500,1100);
 
-		return new Scene(defaultSceneBorderPane, 1500,1100);
-	}
+		primaryStage.setScene(defaultScene);
+		primaryStage.show();
 
-	//public Scene createOriginalScene(){ }
+//		EventHandler<ActionEvent> handler1 = new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent event) {
+//
+//			}
+//		}
+	}//end of start method
+
 
 
 }
