@@ -475,5 +475,4 @@ public class ThreeCardPokerGame extends Application {
 	}//end of start method
 
 
-
 }
