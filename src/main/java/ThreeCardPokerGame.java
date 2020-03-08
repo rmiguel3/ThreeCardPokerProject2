@@ -297,14 +297,17 @@ public class ThreeCardPokerGame extends Application {
 		TextField playerOneBet = new TextField();
 		TextField playerOnePP = new TextField();
 		Button playerOneBtn = new Button();
+		Button playerOneFold = new Button();
 		Button playerOneBtn2 = new Button();
+		playerOneFold.setText("Fold");
+		playerOneFold.setPrefWidth(100);
 		playerOneBtn.setText("Ante/Play Bet");
 		playerOneBtn2.setText("Pair Plus Bet");
 		playerOneBet.setPrefWidth(100);
 		playerOnePP.setPrefWidth(100);
 
-		HBox playerOneBets = new HBox(100, playerOneBet, playerOnePP);
-		HBox playerOneBtns = new HBox(100, playerOneBtn, playerOneBtn2);
+		HBox playerOneBets = new HBox(10, playerOneBet, playerOnePP);
+		HBox playerOneBtns = new HBox(10, playerOneBtn, playerOneBtn2, playerOneFold);
 		pane.getChildren().add(playerOneBets);
 		pane.getChildren().add(playerOneBtns);
 		playerOneBtns.relocate(100,680);
@@ -317,13 +320,16 @@ public class ThreeCardPokerGame extends Application {
 		TextField playerTwoPP = new TextField();
 		Button playerTwoBtn = new Button();
 		Button playerTwoBtn2 = new Button();
+		Button playerTwoFold = new Button();
+		playerTwoFold.setText("Fold");
+		playerTwoFold.setPrefWidth(100);
 		playerTwoBtn.setText("Ante/Play Bet");
 		playerTwoBtn2.setText("Pair Plus Bet");
 		playerTwoBet.setPrefWidth(100);
 		playerTwoPP.setPrefWidth(100);
 
-		HBox playerTwoBets = new HBox(100, playerTwoBet, playerTwoPP);
-		HBox playerTwoBtns = new HBox(100, playerTwoBtn, playerTwoBtn2);
+		HBox playerTwoBets = new HBox(10, playerTwoBet, playerTwoPP);
+		HBox playerTwoBtns = new HBox(10, playerTwoBtn, playerTwoBtn2, playerTwoFold);
 		pane.getChildren().add(playerTwoBets);
 		pane.getChildren().add(playerTwoBtns);
 		playerTwoBtns.relocate(700,680);
