@@ -194,7 +194,7 @@ public class ThreeCardPokerGame extends Application {
 
 		//setting the textboxes and buttons for player 1
 		Text playerOneTxt = new Text(200, 450, "Player 1");
-		final Text[] playerOneBalance = {new Text(200, 475, "Balance: " + player1.getTotalWinnings())};
+		final Text[] playerOneBalance = {new Text(200, 475, "Balance: $" + player1.getTotalWinnings())};
 		playerOneBalance[0].setFont(Font.font ("Verdana", 20));
 		playerOneTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerOneBet = new TextField();
@@ -226,7 +226,7 @@ public class ThreeCardPokerGame extends Application {
 
 		//setting the textboxes and buttons for player 2
 		Text playerTwoTxt = new Text(800, 450, "Player 2");
-		final Text[] playerTwoBalance = {new Text(800, 475, "Balance: " + player2.getTotalWinnings())};
+		final Text[] playerTwoBalance = {new Text(800, 475, "Balance: $" + player2.getTotalWinnings())};
 		playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
 		playerTwoTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerTwoBet = new TextField();
@@ -543,8 +543,11 @@ public class ThreeCardPokerGame extends Application {
 				player1Card3.getChildren().add(purpleCardBackView3);
 
 				player1.setTotalWinnings(player1.getTotalWinnings()-player1Bet[0]-player1PairBet[0]);
-				playerOneBalance[0] = new Text(200,475, "Balance: " + player1.getTotalWinnings());
-				System.out.println(player1.getTotalWinnings());
+				pane.getChildren().remove(playerOneBalance[0]);
+
+				playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+				playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+				pane.getChildren().add(playerOneBalance[0]);
 			}
 		});
 
@@ -559,8 +562,11 @@ public class ThreeCardPokerGame extends Application {
 				player2Card3.getChildren().add(purpleCardBackView6);
 
 				player2.setTotalWinnings(player2.getTotalWinnings()-player2Bet[0]-player2PairBet[0]);
-				playerTwoBalance[0] = new Text(800,475, "Balance: " + player2.getTotalWinnings());
-				System.out.println(player2.getTotalWinnings());
+				pane.getChildren().remove(playerTwoBalance[0]);
+
+				playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
+				playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
+				pane.getChildren().add(playerTwoBalance[0]);
 			}
 		});
 
