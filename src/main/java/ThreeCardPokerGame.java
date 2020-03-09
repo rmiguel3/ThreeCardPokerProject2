@@ -202,19 +202,27 @@ public class ThreeCardPokerGame extends Application {
 		Button playerOneBtn = new Button();
 		Button playerOneFold = new Button();
 		Button playerOneBtn2 = new Button();
+		playerOneBet.setPromptText("Bet!");
+		playerOnePP.setPromptText("PairPlus Bet!");
 		playerOneFold.setText("Fold");
-		playerOneFold.setPrefWidth(100);
-		playerOneBtn.setText("Ante/Play Bet");
-		playerOneBtn2.setText("Pair Plus Bet");
+		playerOneFold.setPrefWidth(75);
+		playerOneBtn.setText("Ante Bet/PP Bet");
+		playerOneBtn2.setText("Play Hand");
 		playerOneBet.setPrefWidth(100);
 		playerOnePP.setPrefWidth(100);
 
-		HBox playerOneBets = new HBox(45, playerOneBet, playerOnePP);
-		HBox playerOneBtns = new HBox(35, playerOneBtn, playerOneBtn2, playerOneFold);
-		pane.getChildren().add(playerOneBets);
+		HBox playerOneAnte = new HBox(45, playerOneBet);
+		HBox player1PP = new HBox(45, playerOnePP);
+		HBox playerOneBtns = new HBox(35, playerOneBtn);
+		HBox player1PlayFoldBtns = new HBox(65,playerOneBtn2, playerOneFold);
+		pane.getChildren().add(player1PlayFoldBtns);
+		pane.getChildren().add(playerOneAnte);
+		pane.getChildren().add(player1PP);
 		pane.getChildren().add(playerOneBtns);
-		playerOneBtns.relocate(100,680);
-		playerOneBets.relocate(100, 650);
+		player1PlayFoldBtns.relocate(250, 650);
+		playerOneBtns.relocate(100,700);
+		player1PP.relocate(100,675);
+		playerOneAnte.relocate(100, 650);
 
 		//setting the textboxes and buttons for player 2
 		Text playerTwoTxt = new Text(800, 450, "Player 2");
@@ -223,22 +231,30 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerTwoBet = new TextField();
 		TextField playerTwoPP = new TextField();
+		playerTwoBet.setPromptText("Bet!");
+		playerTwoPP.setPromptText("PairPlus Bet!");
 		Button playerTwoBtn = new Button();
 		Button playerTwoBtn2 = new Button();
 		Button playerTwoFold = new Button();
 		playerTwoFold.setText("Fold");
 		playerTwoFold.setPrefWidth(100);
-		playerTwoBtn.setText("Ante/Play Bet");
-		playerTwoBtn2.setText("Pair Plus Bet");
+		playerTwoBtn.setText("Ante Bet/PP Bet");
+		playerTwoBtn2.setText("Play Hand");
 		playerTwoBet.setPrefWidth(100);
 		playerTwoPP.setPrefWidth(100);
 
-		HBox playerTwoBets = new HBox(45, playerTwoBet, playerTwoPP);
-		HBox playerTwoBtns = new HBox(35, playerTwoBtn, playerTwoBtn2, playerTwoFold);
-		pane.getChildren().add(playerTwoBets);
+		HBox playerTwoAnte = new HBox(playerTwoBet);
+		HBox player2PP = new HBox(playerTwoPP);
+		HBox playerTwoBtns = new HBox(35, playerTwoBtn);
+		HBox player2PlayFoldBtns = new HBox(65,playerTwoBtn2, playerTwoFold);
+		pane.getChildren().add(playerTwoAnte);
 		pane.getChildren().add(playerTwoBtns);
-		playerTwoBtns.relocate(700,680);
-		playerTwoBets.relocate(700, 650);
+		pane.getChildren().add(player2PP);
+		pane.getChildren().add(player2PlayFoldBtns);
+		player2PlayFoldBtns.relocate(850, 650);
+		player2PP.relocate(700, 675);
+		playerTwoBtns.relocate(700,700);
+		playerTwoAnte.relocate(700, 650);
 
 		Text dealerTxt = new Text(500, 300, "Dealer");
 		dealerTxt.setFont(Font.font ("Comic Sans", 30));
@@ -430,6 +446,7 @@ public class ThreeCardPokerGame extends Application {
 		final int[] player1PairBet = new int[1];
 		final int[] player2Bet = new int[1];
 		final int[] player2PairBet = new int[1];
+
 		// event loop:
 		playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -441,19 +458,24 @@ public class ThreeCardPokerGame extends Application {
 					playerOneBet.clear();
 					playerOneBtn.setDisable(true);
 				}
-			}
-		});
-
-		playerOneBtn2.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
 				int player1PPBet = Integer.parseInt(playerOnePP.getText());
 				player1PairBet[0] = player1PPBet;
 				if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
 					player1.setPairPlusBet(player1PPBet);
 					playerOnePP.clear();
-					playerOneBtn2.setDisable(true);
 				}
+				player1.setHand(dealer.dealHand());
+				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
+				twoSecondPause.setOnFinished(e->{
+					player1Card1.getChildren().clear();
+					player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+					player1Card2.getChildren().clear();
+					player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+					player1Card3.getChildren().clear();
+					player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
+				});
+				twoSecondPause.play();
 			}
 		});
 
@@ -467,40 +489,44 @@ public class ThreeCardPokerGame extends Application {
 					playerTwoBet.clear();
 					playerTwoBtn.setDisable(true);
 				}
-			}
-		});
-
-		playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
 				int player2PPBet = Integer.parseInt(playerTwoPP.getText());
 				player2PairBet[0] = player2PPBet;
 				if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
 					player2.setPairPlusBet(player2PPBet);
 					playerTwoPP.clear();
-					playerTwoBtn2.setDisable(true);
 					player2.setHand(dealer.dealHand());
 				}
-
-				player1.setHand(dealer.dealHand());
 				player2.setHand(dealer.dealHand());
-				dealer.dealHand();
-
 				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 				twoSecondPause.setOnFinished(e->{
-					player1Card1.getChildren().clear();
-					player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-					player1Card2.getChildren().clear();
-					player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-					player1Card3.getChildren().clear();
-					player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
-
 					player2Card1.getChildren().clear();
 					player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
 					player2Card2.getChildren().clear();
 					player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
 					player2Card3.getChildren().clear();
 					player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
+				});
+				twoSecondPause.play();
+				dealer.dealHand();
+			}
+		});
+
+		playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
+				twoSecondPause.setOnFinished(e->{
+
+
+					dealerCard1.getChildren().clear();
+					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + dealer.getDealersHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+					dealerCard2.getChildren().clear();
+					dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + dealer.getDealersHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+					dealerCard3.getChildren().clear();
+					dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + dealer.getDealersHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
 				});
 				twoSecondPause.play();
 			}
@@ -537,6 +563,8 @@ public class ThreeCardPokerGame extends Application {
 				System.out.println(player2.getTotalWinnings());
 			}
 		});
+
+
 
 
 	}//end of start method
