@@ -428,8 +428,11 @@ public class ThreeCardPokerGame extends Application {
 				player2Cards.relocate(700, 500);
 				dealerCards.relocate(400, 100);
 
+				pane.getChildren().remove(player1Cards);
 				pane.getChildren().add(player1Cards);
+				pane.getChildren().remove(player2Cards);
 				pane.getChildren().add(player2Cards);
+				pane.getChildren().remove(dealerCards);
 				pane.getChildren().add(dealerCards);
 
 				Background background = new Background(greenFeltBackgroundImage);
