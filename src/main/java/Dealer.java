@@ -25,6 +25,7 @@ public class Dealer {
         if (theDeck.size() <= 34) {
             theDeck.newDeck();
         }
+        dealersHand = new ArrayList<Card>(3);
         dealersHand.add(theDeck.remove(0));
         dealersHand.add(theDeck.remove(1));
         dealersHand.add(theDeck.remove(2));

@@ -102,7 +102,8 @@ class ThreeCardTest {
 	@Test
 	void testDealHand(){
 		dealer.dealHand();
-		assertEquals(49, dealer.getTheDeck().size(), "Not removing cards from the deck");
+		dealer.dealHand();
+		assertEquals(46, dealer.getTheDeck().size(), "Not removing cards from the deck");
 	}
 
 	@Test

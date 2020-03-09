@@ -27,13 +27,15 @@ import static javafx.scene.layout.Background.EMPTY;
 public class ThreeCardPokerGame extends Application {
 
 	public static void main(String[] args) {
-		//System.out.println("Welcome to Three Card Poker!\n");
-		//System.out.println("Let's start");
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		//create the objects needed to play
+		Dealer dealer = new Dealer();
+		Player player1 = new Player();
+		Player player2 = new Player();
 
 		// S Image Objects:
 		Image S2 = new Image("2S.png", 90, 150, true, true);
@@ -350,6 +352,8 @@ public class ThreeCardPokerGame extends Application {
 
 		//setting the textboxes and buttons for player 1
 		Text playerOneTxt = new Text(200, 450, "Player 1");
+		Text playerOneBalance = new Text(200,475, "Balance: " + player1.getTotalWinnings());
+		playerOneBalance.setFont(Font.font ("Verdana", 20));
 		playerOneTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerOneBet = new TextField();
 		TextField playerOnePP = new TextField();
@@ -372,6 +376,8 @@ public class ThreeCardPokerGame extends Application {
 
 		//setting the textboxes and buttons for player 2
 		Text playerTwoTxt = new Text(800, 450, "Player 2");
+		Text playerTwoBalance = new Text(800,475, "Balance: " + player2.getTotalWinnings());
+		playerTwoBalance.setFont(Font.font ("Verdana", 20));
 		playerTwoTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerTwoBet = new TextField();
 		TextField playerTwoPP = new TextField();
@@ -399,6 +405,8 @@ public class ThreeCardPokerGame extends Application {
 		pane.getChildren().add(player1Cards);
 		pane.getChildren().add(player2Cards);
 		pane.getChildren().add(dealerCards);
+		pane.getChildren().add(playerOneBalance);
+		pane.getChildren().add(playerTwoBalance);
 		pane.getChildren().add(playerTwoTxt);
 		pane.getChildren().add(playerOneTxt);
 		pane.getChildren().add(dealerTxt);
@@ -576,91 +584,85 @@ public class ThreeCardPokerGame extends Application {
 		primaryStage.setScene(defaultScene);
 		primaryStage.show();
 
-		Player player1 = new Player();
-		Player player2 = new Player();
-		Dealer dealer = new Dealer();
-
 		// event loop:
-
-			playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if (playerOneBet.getText() != null && Integer.parseInt(playerOneBet.getText()) > 4 && Integer.parseInt(playerOneBet.getText()) < 26) {
-						player1.setAnteBet(Integer.parseInt(playerOneBet.getText()));
-						playerOneBet.clear();
-						playerOneBtn.setDisable(true);
+				playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						if (playerOneBet.getText() != null && Integer.parseInt(playerOneBet.getText()) > 4 && Integer.parseInt(playerOneBet.getText()) < 26) {
+							player1.setAnteBet(Integer.parseInt(playerOneBet.getText()));
+							playerOneBet.clear();
+							playerOneBtn.setDisable(true);
+						}
 					}
-				}
-			});
+				});
 
 
-			playerOneBtn2.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if (playerOnePP.getText() != null && ((Integer.parseInt(playerOnePP.getText()) > 4 && Integer.parseInt(playerOnePP.getText()) < 26) || Integer.parseInt(playerOnePP.getText()) == 0)) {
-						player1.setPairPlusBet(Integer.parseInt(playerOnePP.getText()));
-						playerOnePP.clear();
-						playerOneBtn2.setDisable(true);
+				playerOneBtn2.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						if (playerOnePP.getText() != null && ((Integer.parseInt(playerOnePP.getText()) > 4 && Integer.parseInt(playerOnePP.getText()) < 26) || Integer.parseInt(playerOnePP.getText()) == 0)) {
+							player1.setPairPlusBet(Integer.parseInt(playerOnePP.getText()));
+							playerOnePP.clear();
+							playerOneBtn2.setDisable(true);
 
-						player1.setHand(dealer.dealHand());
+							player1.setHand(dealer.dealHand());
+						}
 					}
-				}
-			});
+				});
 
 
-			playerTwoBtn.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if (playerTwoBet.getText() != null && Integer.parseInt(playerTwoBet.getText()) > 4 && Integer.parseInt(playerTwoBet.getText()) < 26) {
-						player2.setAnteBet(Integer.parseInt(playerTwoBet.getText()));
-						playerTwoBet.clear();
-						playerTwoBtn.setDisable(true);
+				playerTwoBtn.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						if (playerTwoBet.getText() != null && Integer.parseInt(playerTwoBet.getText()) > 4 && Integer.parseInt(playerTwoBet.getText()) < 26) {
+							player2.setAnteBet(Integer.parseInt(playerTwoBet.getText()));
+							playerTwoBet.clear();
+							playerTwoBtn.setDisable(true);
+						}
 					}
-				}
-			});
+				});
 
-			playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if (playerTwoPP.getText() != null && ((Integer.parseInt(playerTwoPP.getText()) > 4 && Integer.parseInt(playerTwoPP.getText()) < 26) || Integer.parseInt(playerTwoPP.getText()) == 0)) {
-						player2.setPairPlusBet(Integer.parseInt(playerTwoPP.getText()));
-						playerTwoPP.clear();
-						playerTwoBtn2.setDisable(true);
+				playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						if (playerTwoPP.getText() != null && ((Integer.parseInt(playerTwoPP.getText()) > 4 && Integer.parseInt(playerTwoPP.getText()) < 26) || Integer.parseInt(playerTwoPP.getText()) == 0)) {
+							player2.setPairPlusBet(Integer.parseInt(playerTwoPP.getText()));
+							playerTwoPP.clear();
+							playerTwoBtn2.setDisable(true);
+						}
 					}
-				}
-			});
-			System.out.println("here");
-			//if (playerOneBtn.isDisabled() == true && playerOneBtn2.isDisabled() == true && playerTwoBtn.isDisabled() == true && playerTwoBtn2.isDisabled() == true) {
-			player1.setHand(dealer.dealHand());
-			player2.setHand(dealer.dealHand());
-			dealer.dealHand();
+				});
+				//System.out.println("here");
+				//if ((playerOneBtn.isDisabled()) && (playerOneBtn2.isDisabled()) && (playerTwoBtn.isDisabled()) && (playerTwoBtn2.isDisabled())) {
+					player1.setHand(dealer.dealHand());
+					player2.setHand(dealer.dealHand());
+					dealer.dealHand();
 
-			new PauseTransition(Duration.millis(3000));
-			System.out.println("here");
+					//new PauseTransition(Duration.millis(3000));
+					//System.out.println("here");
 
-			player1Card1.getChildren().clear();
-			player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-			player1Card2.getChildren().clear();
-			player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-			player1Card3.getChildren().clear();
-			player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+					player1Card1.getChildren().clear();
+					player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+					player1Card2.getChildren().clear();
+					player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+					player1Card3.getChildren().clear();
+					player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
 
-			player2Card1.getChildren().clear();
-			player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-			player2Card2.getChildren().clear();
-			player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-			player2Card3.getChildren().clear();
-			player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+					player2Card1.getChildren().clear();
+					player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+					player2Card2.getChildren().clear();
+					player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+					player2Card3.getChildren().clear();
+					player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
 
-			dealerCard1.getChildren().clear();
-			dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-			dealerCard2.getChildren().clear();
-			dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-			dealerCard3.getChildren().clear();
-			dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+					dealerCard1.getChildren().clear();
+					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+					dealerCard2.getChildren().clear();
+					dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+					dealerCard3.getChildren().clear();
+					dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
 
 				//}
-
 	}//end of start method
 
 

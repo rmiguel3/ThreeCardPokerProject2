@@ -10,8 +10,8 @@ public class Deck extends ArrayList<Card> {
             this.add(new Card('D', i));
             this.add(new Card('H', i));
             this.add(new Card('S', i));
-            Collections.shuffle(this);
         }
+        Collections.shuffle(this);
     }
 
     public Deck(Deck deck) {
@@ -20,8 +20,8 @@ public class Deck extends ArrayList<Card> {
             deck.add(new Card('D', i));
             deck.add(new Card('H', i));
             deck.add(new Card('S', i));
-            Collections.shuffle(deck);
         }
+        Collections.shuffle(deck);
     }
 
     //clears the current deck and replaces it with a brand new shuffle deck
