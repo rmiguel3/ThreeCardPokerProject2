@@ -363,7 +363,7 @@ public class ThreeCardPokerGame extends Application {
 		playerOneBet.setPrefWidth(100);
 		playerOnePP.setPrefWidth(100);
 
-		HBox playerOneBets = new HBox(10, playerOneBet, playerOnePP);
+		HBox playerOneBets = new HBox(35, playerOneBet, playerOnePP);
 		HBox playerOneBtns = new HBox(35, playerOneBtn, playerOneBtn2, playerOneFold);
 		pane.getChildren().add(playerOneBets);
 		pane.getChildren().add(playerOneBtns);
@@ -385,7 +385,7 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoBet.setPrefWidth(100);
 		playerTwoPP.setPrefWidth(100);
 
-		HBox playerTwoBets = new HBox(10, playerTwoBet, playerTwoPP);
+		HBox playerTwoBets = new HBox(35, playerTwoBet, playerTwoPP);
 		HBox playerTwoBtns = new HBox(35, playerTwoBtn, playerTwoBtn2, playerTwoFold);
 		pane.getChildren().add(playerTwoBets);
 		pane.getChildren().add(playerTwoBtns);
@@ -576,9 +576,91 @@ public class ThreeCardPokerGame extends Application {
 		primaryStage.setScene(defaultScene);
 		primaryStage.show();
 
-//		while (true) {
-//
-//		}
+		Player player1 = new Player();
+		Player player2 = new Player();
+		Dealer dealer = new Dealer();
+
+		// event loop:
+
+			playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if (playerOneBet.getText() != null && Integer.parseInt(playerOneBet.getText()) > 4 && Integer.parseInt(playerOneBet.getText()) < 26) {
+						player1.setAnteBet(Integer.parseInt(playerOneBet.getText()));
+						playerOneBet.clear();
+						playerOneBtn.setDisable(true);
+					}
+				}
+			});
+
+
+			playerOneBtn2.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if (playerOnePP.getText() != null && ((Integer.parseInt(playerOnePP.getText()) > 4 && Integer.parseInt(playerOnePP.getText()) < 26) || Integer.parseInt(playerOnePP.getText()) == 0)) {
+						player1.setPairPlusBet(Integer.parseInt(playerOnePP.getText()));
+						playerOnePP.clear();
+						playerOneBtn2.setDisable(true);
+
+						player1.setHand(dealer.dealHand());
+					}
+				}
+			});
+
+
+			playerTwoBtn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if (playerTwoBet.getText() != null && Integer.parseInt(playerTwoBet.getText()) > 4 && Integer.parseInt(playerTwoBet.getText()) < 26) {
+						player2.setAnteBet(Integer.parseInt(playerTwoBet.getText()));
+						playerTwoBet.clear();
+						playerTwoBtn.setDisable(true);
+					}
+				}
+			});
+
+			playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if (playerTwoPP.getText() != null && ((Integer.parseInt(playerTwoPP.getText()) > 4 && Integer.parseInt(playerTwoPP.getText()) < 26) || Integer.parseInt(playerTwoPP.getText()) == 0)) {
+						player2.setPairPlusBet(Integer.parseInt(playerTwoPP.getText()));
+						playerTwoPP.clear();
+						playerTwoBtn2.setDisable(true);
+					}
+				}
+			});
+			System.out.println("here");
+			//if (playerOneBtn.isDisabled() == true && playerOneBtn2.isDisabled() == true && playerTwoBtn.isDisabled() == true && playerTwoBtn2.isDisabled() == true) {
+			player1.setHand(dealer.dealHand());
+			player2.setHand(dealer.dealHand());
+			dealer.dealHand();
+
+			new PauseTransition(Duration.millis(3000));
+			System.out.println("here");
+
+			player1Card1.getChildren().clear();
+			player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+			player1Card2.getChildren().clear();
+			player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+			player1Card3.getChildren().clear();
+			player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
+			player2Card1.getChildren().clear();
+			player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+			player2Card2.getChildren().clear();
+			player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+			player2Card3.getChildren().clear();
+			player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
+			dealerCard1.getChildren().clear();
+			dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+			dealerCard2.getChildren().clear();
+			dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+			dealerCard3.getChildren().clear();
+			dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
+				//}
+
 	}//end of start method
 
 
