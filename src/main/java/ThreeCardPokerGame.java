@@ -491,6 +491,11 @@ public class ThreeCardPokerGame extends Application {
 
 						});
 						twoSecondPause.play();
+						player1.setTotalWinnings(ThreeCardLogic.evalPPWinnings(player1.getHand(), player1PPBet));
+						pane.getChildren().remove(playerOneBalance[0]);
+						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerOneBalance[0]);
 					}
 				}
 			}
@@ -537,6 +542,11 @@ public class ThreeCardPokerGame extends Application {
 						});
 						twoSecondPause.play();
 						dealer.dealHand();
+						player2.setTotalWinnings(ThreeCardLogic.evalPPWinnings(player2.getHand(), player2PPBet));
+						pane.getChildren().remove(playerTwoBalance[0]);
+						playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
+						playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerTwoBalance[0]);
 					}
 				}
 			}
