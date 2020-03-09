@@ -121,6 +121,18 @@ class ThreeCardTest {
 	}
 
 	@Test
+	void testResetDeck(){
+		dealer.dealHand();
+		dealer.dealHand();
+		dealer.dealHand();
+		dealer.dealHand();
+		dealer.dealHand();
+		dealer.dealHand();
+		assertEquals(52, dealer.getTheDeck().size());
+
+	}
+
+	@Test
 	void testEvalHandPair(){
 		ArrayList<Card> pairCard = new ArrayList<Card>();
 		pairCard.add(new Card('H', 5));

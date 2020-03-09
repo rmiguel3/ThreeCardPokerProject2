@@ -22,13 +22,13 @@ public class Dealer {
 
     //takes 3 cards from the deck for dealer to use
     public ArrayList<Card> dealHand() {
-        if (theDeck.size() <= 34) {
-            theDeck.newDeck();
-        }
         dealersHand = new ArrayList<Card>(3);
         dealersHand.add(theDeck.remove(0));
         dealersHand.add(theDeck.remove(1));
         dealersHand.add(theDeck.remove(2));
+        if (theDeck.size() <= 34) {
+            theDeck.newDeck();
+        }
         return dealersHand;
     }
 
