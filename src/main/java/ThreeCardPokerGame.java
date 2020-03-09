@@ -37,167 +37,7 @@ public class ThreeCardPokerGame extends Application {
 		Player player1 = new Player();
 		Player player2 = new Player();
 
-		// S Image Objects:
-		Image S2 = new Image("2S.png", 90, 150, true, true);
-		ImageView S2View = new ImageView(S2);
-
-		Image S3 = new Image("3S.png", 90, 150, true, true);
-		ImageView S3View = new ImageView(S3);
-
-		Image S4 = new Image("4S.png", 90, 150, true, true);
-		ImageView S4View = new ImageView(S4);
-
-		Image S5 = new Image("5S.png", 90, 150, true, true);
-		ImageView S5View = new ImageView(S5);
-
-		Image S6 = new Image("6S.png", 90, 150, true, true);
-		ImageView S6View = new ImageView(S6);
-
-		Image S7 = new Image("7S.png", 90, 150, true, true);
-		ImageView S7View = new ImageView(S7);
-
-		Image S8 = new Image("8S.png", 90, 150, true, true);
-		ImageView S8View = new ImageView(S8);
-
-		Image S9 = new Image("9S.png", 90, 150, true, true);
-		ImageView S9View = new ImageView(S9);
-
-		Image S10 = new Image("10S.png", 90, 150, true, true);
-		ImageView S10View = new ImageView(S10);
-
-		Image S11 = new Image("11S.png", 90, 150, true, true);
-		ImageView S11View = new ImageView(S11);
-
-		Image S12 = new Image("12S.png", 90, 150, true, true);
-		ImageView S12View = new ImageView(S12);
-
-		Image S13 = new Image("13S.png", 90, 150, true, true);
-		ImageView S13View = new ImageView(S13);
-
-		Image S14 = new Image("14S.png", 90, 150, true, true);
-		ImageView S14View = new ImageView(S14);
-
-		// H Image Objects:
-		Image H2 = new Image("2H.png", 90, 150, true, true);
-		ImageView H2View = new ImageView(H2);
-
-		Image H3 = new Image("3H.png", 90, 150, true, true);
-		ImageView H3View = new ImageView(H3);
-
-		Image H4 = new Image("4H.png", 90, 150, true, true);
-		ImageView H4View = new ImageView(H4);
-
-		Image H5 = new Image("5H.png", 90, 150, true, true);
-		ImageView H5View = new ImageView(H5);
-
-		Image H6 = new Image("6H.png", 90, 150, true, true);
-		ImageView H6View = new ImageView(H6);
-
-		Image H7 = new Image("7H.png", 90, 150, true, true);
-		ImageView H7View = new ImageView(H7);
-
-		Image H8 = new Image("8H.png", 90, 150, true, true);
-		ImageView H8View = new ImageView(H8);
-
-		Image H9 = new Image("9H.png", 90, 150, true, true);
-		ImageView H9View = new ImageView(H9);
-
-		Image H10 = new Image("10H.png", 90, 150, true, true);
-		ImageView H10View = new ImageView(H10);
-
-		Image H11 = new Image("11H.png", 90, 150, true, true);
-		ImageView H11View = new ImageView(H11);
-
-		Image H12 = new Image("12H.png", 90, 150, true, true);
-		ImageView H12View = new ImageView(H12);
-
-		Image H13 = new Image("13H.png", 90, 150, true, true);
-		ImageView HKingView = new ImageView(H13);
-
-		Image H14 = new Image("14H.png", 90, 150, true, true);
-		ImageView HAceView = new ImageView(H14);
-
-		// C Image Objects:
-		Image C2 = new Image("2C.png", 90, 150, true, true);
-		ImageView C2View = new ImageView(C2);
-
-		Image C3 = new Image("3C.png", 90, 150, true, true);
-		ImageView C3View = new ImageView(C3);
-
-		Image C4 = new Image("4C.png", 90, 150, true, true);
-		ImageView C4View = new ImageView(C4);
-
-		Image C5 = new Image("5C.png", 90, 150, true, true);
-		ImageView C5View = new ImageView(C5);
-
-		Image C6 = new Image("6C.png", 90, 150, true, true);
-		ImageView C6View = new ImageView(C6);
-
-		Image C7 = new Image("7C.png", 90, 150, true, true);
-		ImageView C7View = new ImageView(C7);
-
-		Image C8 = new Image("8C.png", 90, 150, true, true);
-		ImageView C8View = new ImageView(C8);
-
-		Image C9 = new Image("9C.png", 90, 150, true, true);
-		ImageView C9View = new ImageView(C9);
-
-		Image C10 = new Image("10C.png", 90, 150, true, true);
-		ImageView C10View = new ImageView(C10);
-
-		Image C11 = new Image("11C.png", 90, 150, true, true);
-		ImageView C11View = new ImageView(C11);
-
-		Image C12 = new Image("12C.png", 90, 150, true, true);
-		ImageView C12View = new ImageView(C12);
-
-		Image C13 = new Image("13C.png", 90, 150, true, true);
-		ImageView C13View = new ImageView(C13);
-
-		Image C14 = new Image("14C.png", 90, 150, true, true);
-		ImageView C14View = new ImageView(C14);
-
-		// D Image Objects:
-		Image D2 = new Image("2D.png", 90, 150, true, true);
-		ImageView D2View = new ImageView(D2);
-
-		Image D3 = new Image("3D.png", 90, 150, true, true);
-		ImageView D3View = new ImageView(D3);
-
-		Image D4 = new Image("4D.png", 90, 150, true, true);
-		ImageView D4View = new ImageView(D4);
-
-		Image D5 = new Image("5D.png", 90, 150, true, true);
-		ImageView D5View = new ImageView(D5);
-
-		Image D6 = new Image("6D.png", 90, 150, true, true);
-		ImageView D6View = new ImageView(D6);
-
-		Image D7 = new Image("7D.png", 90, 150, true, true);
-		ImageView D7View = new ImageView(D7);
-
-		Image D8 = new Image("8D.png", 90, 150, true, true);
-		ImageView D8View = new ImageView(D8);
-
-		Image D9 = new Image("9D.png", 90, 150, true, true);
-		ImageView D9View = new ImageView(D9);
-
-		Image D10 = new Image("10D.png", 90, 150, true, true);
-		ImageView D10View = new ImageView(D10);
-
-		Image D11 = new Image("11D.png", 90, 150, true, true);
-		ImageView D11View = new ImageView(D11);
-
-		Image D12 = new Image("12D.png", 90, 150, true, true);
-		ImageView D12View = new ImageView(D12);
-
-		Image D13 = new Image("13D.png", 90, 150, true, true);
-		ImageView D13View = new ImageView(D13);
-
-		Image D14 = new Image("14D.png", 90, 150, true, true);
-		ImageView D14View = new ImageView(D14);
-
-
+		// default card back objects:
 		Image purpleCardBack = new Image("purple_back.png", 90, 150, true, true);
 		ImageView purpleCardBackView = new ImageView(purpleCardBack);
 
@@ -225,13 +65,16 @@ public class ThreeCardPokerGame extends Application {
 		Image purpleCardBack9 = new Image("purple_back.png", 90, 150, true, true);
 		ImageView purpleCardBackView9 = new ImageView(purpleCardBack9);
 
+		// default background:
 		Image greenBackground = new Image("green background.jpg",1920,1080,true,true);
 
+		// hallenbeck style background:
 		Image cozmoPic = new Image("cozmo.jpg",1920,1080,true,true);
 
+		// card jitsu style background
 		Image dojoBackground = new Image("dojo_background.png", 1920, 1080, true,true);
 
-		//Hallenbeck images
+		//Hallenbeck card back image objects:
 		Image Beck = new Image("HallenBeck.JPG", 90, 150, true, true);
 		ImageView BeckView = new ImageView(Beck);
 
@@ -259,7 +102,7 @@ public class ThreeCardPokerGame extends Application {
 		Image Beck9 = new Image("HallenBeck.JPG", 90, 150, true, true);
 		ImageView BeckView9 = new ImageView(Beck9);
 
-		// club penguin card images:
+		// card jitsu card back image objects:
 		Image fireNinja = new Image("fireNinja.png", 90, 150, true, true);
 		ImageView fireNinjaView = new ImageView(fireNinja);
 
@@ -290,7 +133,6 @@ public class ThreeCardPokerGame extends Application {
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 
 		BorderPane defaultSceneBorderPane = new BorderPane();
-		PauseTransition pause = new PauseTransition(Duration.seconds(2));
 
 		//creating the options drop down menu
 		Menu menu = new Menu("Options");
@@ -352,8 +194,8 @@ public class ThreeCardPokerGame extends Application {
 
 		//setting the textboxes and buttons for player 1
 		Text playerOneTxt = new Text(200, 450, "Player 1");
-		Text playerOneBalance = new Text(200,475, "Balance: " + player1.getTotalWinnings());
-		playerOneBalance.setFont(Font.font ("Verdana", 20));
+		final Text[] playerOneBalance = {new Text(200, 475, "Balance: " + player1.getTotalWinnings())};
+		playerOneBalance[0].setFont(Font.font ("Verdana", 20));
 		playerOneTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerOneBet = new TextField();
 		TextField playerOnePP = new TextField();
@@ -367,7 +209,7 @@ public class ThreeCardPokerGame extends Application {
 		playerOneBet.setPrefWidth(100);
 		playerOnePP.setPrefWidth(100);
 
-		HBox playerOneBets = new HBox(35, playerOneBet, playerOnePP);
+		HBox playerOneBets = new HBox(45, playerOneBet, playerOnePP);
 		HBox playerOneBtns = new HBox(35, playerOneBtn, playerOneBtn2, playerOneFold);
 		pane.getChildren().add(playerOneBets);
 		pane.getChildren().add(playerOneBtns);
@@ -376,8 +218,8 @@ public class ThreeCardPokerGame extends Application {
 
 		//setting the textboxes and buttons for player 2
 		Text playerTwoTxt = new Text(800, 450, "Player 2");
-		Text playerTwoBalance = new Text(800,475, "Balance: " + player2.getTotalWinnings());
-		playerTwoBalance.setFont(Font.font ("Verdana", 20));
+		final Text[] playerTwoBalance = {new Text(800, 475, "Balance: " + player2.getTotalWinnings())};
+		playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
 		playerTwoTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerTwoBet = new TextField();
 		TextField playerTwoPP = new TextField();
@@ -391,7 +233,7 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoBet.setPrefWidth(100);
 		playerTwoPP.setPrefWidth(100);
 
-		HBox playerTwoBets = new HBox(35, playerTwoBet, playerTwoPP);
+		HBox playerTwoBets = new HBox(45, playerTwoBet, playerTwoPP);
 		HBox playerTwoBtns = new HBox(35, playerTwoBtn, playerTwoBtn2, playerTwoFold);
 		pane.getChildren().add(playerTwoBets);
 		pane.getChildren().add(playerTwoBtns);
@@ -405,8 +247,8 @@ public class ThreeCardPokerGame extends Application {
 		pane.getChildren().add(player1Cards);
 		pane.getChildren().add(player2Cards);
 		pane.getChildren().add(dealerCards);
-		pane.getChildren().add(playerOneBalance);
-		pane.getChildren().add(playerTwoBalance);
+		pane.getChildren().add(playerOneBalance[0]);
+		pane.getChildren().add(playerTwoBalance[0]);
 		pane.getChildren().add(playerTwoTxt);
 		pane.getChildren().add(playerOneTxt);
 		pane.getChildren().add(dealerTxt);
@@ -584,63 +426,68 @@ public class ThreeCardPokerGame extends Application {
 		primaryStage.setScene(defaultScene);
 		primaryStage.show();
 
+		final int[] player1Bet = new int[1];
+		final int[] player1PairBet = new int[1];
+		final int[] player2Bet = new int[1];
+		final int[] player2PairBet = new int[1];
 		// event loop:
-				playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-						if (playerOneBet.getText() != null && Integer.parseInt(playerOneBet.getText()) > 4 && Integer.parseInt(playerOneBet.getText()) < 26) {
-							player1.setAnteBet(Integer.parseInt(playerOneBet.getText()));
-							playerOneBet.clear();
-							playerOneBtn.setDisable(true);
-						}
-					}
-				});
+		playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int player1PlayBet = Integer.parseInt(playerOneBet.getText());
+				player1Bet[0] = player1PlayBet;
+				if (playerOneBet.getText() != null && player1PlayBet > 4 && player1PlayBet < 26) {
+					player1.setAnteBet(player1PlayBet);
+					playerOneBet.clear();
+					playerOneBtn.setDisable(true);
+				}
+			}
+		});
 
+		playerOneBtn2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int player1PPBet = Integer.parseInt(playerOnePP.getText());
+				player1PairBet[0] = player1PPBet;
+				if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
+					player1.setPairPlusBet(player1PPBet);
+					playerOnePP.clear();
+					playerOneBtn2.setDisable(true);
+				}
+			}
+		});
 
-				playerOneBtn2.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-						if (playerOnePP.getText() != null && ((Integer.parseInt(playerOnePP.getText()) > 4 && Integer.parseInt(playerOnePP.getText()) < 26) || Integer.parseInt(playerOnePP.getText()) == 0)) {
-							player1.setPairPlusBet(Integer.parseInt(playerOnePP.getText()));
-							playerOnePP.clear();
-							playerOneBtn2.setDisable(true);
+		playerTwoBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int player2PlayBet = Integer.parseInt(playerTwoBet.getText());
+				player2Bet[0] = player2PlayBet;
+				if (playerTwoBet.getText() != null && player2PlayBet > 4 && player2PlayBet < 26) {
+					player2.setAnteBet(player2PlayBet);
+					playerTwoBet.clear();
+					playerTwoBtn.setDisable(true);
+				}
+			}
+		});
 
-							player1.setHand(dealer.dealHand());
-						}
-					}
-				});
-
-
-				playerTwoBtn.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-						if (playerTwoBet.getText() != null && Integer.parseInt(playerTwoBet.getText()) > 4 && Integer.parseInt(playerTwoBet.getText()) < 26) {
-							player2.setAnteBet(Integer.parseInt(playerTwoBet.getText()));
-							playerTwoBet.clear();
-							playerTwoBtn.setDisable(true);
-						}
-					}
-				});
-
-				playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-						if (playerTwoPP.getText() != null && ((Integer.parseInt(playerTwoPP.getText()) > 4 && Integer.parseInt(playerTwoPP.getText()) < 26) || Integer.parseInt(playerTwoPP.getText()) == 0)) {
-							player2.setPairPlusBet(Integer.parseInt(playerTwoPP.getText()));
-							playerTwoPP.clear();
-							playerTwoBtn2.setDisable(true);
-						}
-					}
-				});
-				//System.out.println("here");
-				//if ((playerOneBtn.isDisabled()) && (playerOneBtn2.isDisabled()) && (playerTwoBtn.isDisabled()) && (playerTwoBtn2.isDisabled())) {
-					player1.setHand(dealer.dealHand());
+		playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				int player2PPBet = Integer.parseInt(playerTwoPP.getText());
+				player2PairBet[0] = player2PPBet;
+				if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
+					player2.setPairPlusBet(player2PPBet);
+					playerTwoPP.clear();
+					playerTwoBtn2.setDisable(true);
 					player2.setHand(dealer.dealHand());
-					dealer.dealHand();
+				}
 
-					//new PauseTransition(Duration.millis(3000));
-					//System.out.println("here");
+				player1.setHand(dealer.dealHand());
+				player2.setHand(dealer.dealHand());
+				dealer.dealHand();
 
+				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
+				twoSecondPause.setOnFinished(e->{
 					player1Card1.getChildren().clear();
 					player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
 					player1Card2.getChildren().clear();
@@ -654,15 +501,44 @@ public class ThreeCardPokerGame extends Application {
 					player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
 					player2Card3.getChildren().clear();
 					player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+				});
+				twoSecondPause.play();
+			}
+		});
 
-					dealerCard1.getChildren().clear();
-					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-					dealerCard2.getChildren().clear();
-					dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-					dealerCard3.getChildren().clear();
-					dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+		playerOneFold.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				player1Card1.getChildren().clear();
+				player1Card1.getChildren().add(purpleCardBackView);
+				player1Card2.getChildren().clear();
+				player1Card2.getChildren().add(purpleCardBackView2);
+				player1Card3.getChildren().clear();
+				player1Card3.getChildren().add(purpleCardBackView3);
 
-				//}
+				player1.setTotalWinnings(player1.getTotalWinnings()-player1Bet[0]-player1PairBet[0]);
+				playerOneBalance[0] = new Text(200,475, "Balance: " + player1.getTotalWinnings());
+				System.out.println(player1.getTotalWinnings());
+			}
+		});
+
+		playerTwoFold.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				player2Card1.getChildren().clear();
+				player2Card1.getChildren().add(purpleCardBackView4);
+				player2Card2.getChildren().clear();
+				player2Card2.getChildren().add(purpleCardBackView5);
+				player2Card3.getChildren().clear();
+				player2Card3.getChildren().add(purpleCardBackView6);
+
+				player2.setTotalWinnings(player2.getTotalWinnings()-player2Bet[0]-player2PairBet[0]);
+				playerTwoBalance[0] = new Text(800,475, "Balance: " + player2.getTotalWinnings());
+				System.out.println(player2.getTotalWinnings());
+			}
+		});
+
+
 	}//end of start method
 
 
