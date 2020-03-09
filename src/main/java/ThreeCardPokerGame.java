@@ -22,6 +22,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import static javafx.scene.layout.Background.EMPTY;
+
 public class ThreeCardPokerGame extends Application {
 
 	public static void main(String[] args) {
@@ -255,6 +257,7 @@ public class ThreeCardPokerGame extends Application {
 		Image Beck9 = new Image("HallenBeck.JPG", 90, 150, true, true);
 		ImageView BeckView9 = new ImageView(Beck9);
 
+		// club penguin card images:
 		Image fireNinja = new Image("fireNinja.png", 90, 150, true, true);
 		ImageView fireNinjaView = new ImageView(fireNinja);
 
@@ -297,15 +300,15 @@ public class ThreeCardPokerGame extends Application {
 		MenuItem freshStart = new MenuItem("Fresh Start");
 
 		Menu newLook = new Menu("New Look");
-		MenuItem cozmo = new MenuItem("Hallenbeck");
 		MenuItem original = new MenuItem("Default");
+		MenuItem cozmo = new MenuItem("Hallenbeck");
 		MenuItem cardJitsu = new MenuItem("Club Penguin Card Jitsu");
 
 		menu.getItems().add(exit);
 		menu.getItems().add(freshStart);
 		menu.getItems().add(newLook);
-		newLook.getItems().add(cozmo);
 		newLook.getItems().add(original);
+		newLook.getItems().add(cozmo);
 		newLook.getItems().add(cardJitsu);
 
 		MenuBar bar = new MenuBar();
@@ -510,7 +513,7 @@ public class ThreeCardPokerGame extends Application {
 			}
 		});
 
-		EventHandler<ActionEvent> startOfGame = new EventHandler<ActionEvent>() {
+		original.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				player1Cards.getChildren().clear();
@@ -561,8 +564,7 @@ public class ThreeCardPokerGame extends Application {
 				Background background = new Background(greenFeltBackgroundImage);
 				pane.setBackground(background);
 			}
-		};
-		original.setOnAction(startOfGame);
+		});
 
 		Background background = new Background(greenFeltBackgroundImage);
 		pane.setBackground(background);
@@ -574,7 +576,9 @@ public class ThreeCardPokerGame extends Application {
 		primaryStage.setScene(defaultScene);
 		primaryStage.show();
 
-
+//		while (true) {
+//
+//		}
 	}//end of start method
 
 
