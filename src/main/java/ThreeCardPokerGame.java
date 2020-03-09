@@ -491,6 +491,8 @@ public class ThreeCardPokerGame extends Application {
 
 						});
 						twoSecondPause.play();
+
+						//evaluates Pair Plus and adjusts the balance on the screen for PLayer 1
 						player1.setTotalWinnings(ThreeCardLogic.evalPPWinnings(player1.getHand(), player1PPBet));
 						pane.getChildren().remove(playerOneBalance[0]);
 						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
@@ -542,6 +544,8 @@ public class ThreeCardPokerGame extends Application {
 						});
 						twoSecondPause.play();
 						dealer.dealHand();
+
+						//evaluates Pair Plus and adjusts the balance on the screen for Player 2
 						player2.setTotalWinnings(ThreeCardLogic.evalPPWinnings(player2.getHand(), player2PPBet));
 						pane.getChildren().remove(playerTwoBalance[0]);
 						playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
