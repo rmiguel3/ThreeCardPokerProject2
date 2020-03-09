@@ -598,6 +598,56 @@ public class ThreeCardPokerGame extends Application {
 						pane.getChildren().add(playerOneBalance[0]);
 					}
 				}
+				// dealer did qualify:
+				else {
+					System.out.println("dealer did qualify");
+					// evaluate player1 and dealer's hands:
+					int player1VsDealer = -1;
+					int player2VsDealer = -1;
+
+					if (!player1FoldFlag[0])
+						player1VsDealer = ThreeCardLogic.compareHands(dealer.getDealersHand(), player1.getHand()); // 0, 1, or 2 depending on who won
+
+					// tie between player1 and dealer
+					if (player1VsDealer == 0) {
+						player1.setTotalWinnings(player1.getTotalWinnings() + player1Bet[0]);
+						pane.getChildren().remove(playerOneBalance[0]);
+						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerOneBalance[0]);
+
+						player2FoldFlag[0] = false;
+						dealerQualifyFlag[0] = false;
+					}
+
+					// dealer wins over player1:
+					if (player1VsDealer == 1) {
+						player1.setTotalWinnings(player1.getTotalWinnings() - player1Bet[0] - anteBet[0]);
+						pane.getChildren().remove(playerOneBalance[0]);
+						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerOneBalance[0]);
+
+						if (player2FoldFlag[0] == true)
+							anteBet[0] = 0;
+						player2FoldFlag[0] = false;
+						dealerQualifyFlag[0] = false;
+					}
+
+					// player1 wins:
+					if (player1VsDealer == 2) {
+						player1.setTotalWinnings(player1.getTotalWinnings() + 2*(player1Bet[0] + anteBet[0]));
+						pane.getChildren().remove(playerOneBalance[0]);
+						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerOneBalance[0]);
+
+						if (player2FoldFlag[0] == true)
+							anteBet[0] = 0;
+						player2FoldFlag[0] = false;
+						dealerQualifyFlag[0] = false;
+					}
+				}
 			}
 		});
 
