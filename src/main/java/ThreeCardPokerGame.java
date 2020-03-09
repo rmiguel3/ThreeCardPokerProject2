@@ -255,6 +255,33 @@ public class ThreeCardPokerGame extends Application {
 		Image Beck9 = new Image("HallenBeck.JPG", 90, 150, true, true);
 		ImageView BeckView9 = new ImageView(Beck9);
 
+		Image fireNinja = new Image("fireNinja.png", 90, 150, true, true);
+		ImageView fireNinjaView = new ImageView(fireNinja);
+
+		Image fireNinja2 = new Image("fireNinja.png", 90, 150, true, true);
+		ImageView fireNinjaView2 = new ImageView(fireNinja2);
+
+		Image fireNinja3 = new Image("fireNinja.png", 90, 150, true, true);
+		ImageView fireNinjaView3 = new ImageView(fireNinja3);
+
+		Image waterNinja = new Image("waterNinja.png", 90, 150, true, true);
+		ImageView waterNinjaView = new ImageView(waterNinja);
+
+		Image waterNinja2 = new Image("waterNinja.png", 90, 150, true, true);
+		ImageView waterNinjaView2 = new ImageView(waterNinja2);
+
+		Image waterNinja3 = new Image("waterNinja.png", 90, 150, true, true);
+		ImageView waterNinjaView3 = new ImageView(waterNinja3);
+
+		Image snowNinja = new Image("snowNinja.png", 90, 150, true, true);
+		ImageView snowNinjaView = new ImageView(snowNinja);
+
+		Image snowNinja2 = new Image("snowNinja.png", 90, 150, true, true);
+		ImageView snowNinjaView2 = new ImageView(snowNinja2);
+
+		Image snowNinja3 = new Image("snowNinja.png", 90, 150, true, true);
+		ImageView snowNinjaView3 = new ImageView(snowNinja3);
+
 		primaryStage.setTitle("Let's Play Three Card Poker!!!");
 
 		BorderPane defaultSceneBorderPane = new BorderPane();
@@ -272,12 +299,14 @@ public class ThreeCardPokerGame extends Application {
 		Menu newLook = new Menu("New Look");
 		MenuItem cozmo = new MenuItem("Hallenbeck");
 		MenuItem original = new MenuItem("Default");
+		MenuItem cardJitsu = new MenuItem("Club Penguin Card Jitsu");
 
 		menu.getItems().add(exit);
 		menu.getItems().add(freshStart);
 		menu.getItems().add(newLook);
 		newLook.getItems().add(cozmo);
 		newLook.getItems().add(original);
+		newLook.getItems().add(cardJitsu);
 
 		MenuBar bar = new MenuBar();
 
@@ -424,6 +453,59 @@ public class ThreeCardPokerGame extends Application {
 				pane.getChildren().add(dealerCards);
 
 				Background background = new Background(cozmoBackgroundImage);
+				pane.setBackground(background);
+			}
+		});
+
+		cardJitsu.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				player1Cards.getChildren().clear();
+				player2Cards.getChildren().clear();
+				dealerCards.getChildren().clear();
+
+				//player 1's card backs
+				player1Card1.getChildren().clear();
+				player1Card1.getChildren().add(fireNinjaView);
+				player1Card2.getChildren().clear();
+				player1Card2.getChildren().add(fireNinjaView2);
+				player1Card3.getChildren().clear();
+				player1Card3.getChildren().add(fireNinjaView3);
+
+				//player 2's card backs
+				player2Card1.getChildren().clear();
+				player2Card1.getChildren().add(waterNinjaView);
+				player2Card2.getChildren().clear();
+				player2Card2.getChildren().add(waterNinjaView2);
+				player2Card3.getChildren().clear();
+				player2Card3.getChildren().add(waterNinjaView3);
+
+				//Dealers's card backs
+				dealerCard1.getChildren().clear();
+				dealerCard1.getChildren().add(snowNinjaView);
+				dealerCard2.getChildren().clear();
+				dealerCard2.getChildren().add(snowNinjaView2);
+				dealerCard3.getChildren().clear();
+				dealerCard3.getChildren().add(snowNinjaView3);
+
+				//Adding the cards to each of their respective HBox
+				player1Cards.getChildren().clear();
+				player1Cards.getChildren().addAll(player1Card1, player1Card2, player1Card3);
+				player2Cards.getChildren().clear();
+				player2Cards.getChildren().addAll(player2Card1, player2Card2, player2Card3);
+				dealerCards.getChildren().clear();
+				dealerCards.getChildren().addAll(dealerCard1,dealerCard2, dealerCard3);
+
+
+				player1Cards.relocate(100,500);
+				player2Cards.relocate(700, 500);
+				dealerCards.relocate(400, 100);
+
+				pane.getChildren().add(player1Cards);
+				pane.getChildren().add(player2Cards);
+				pane.getChildren().add(dealerCards);
+
+				Background background = new Background(dojoBackgroundImage);
 				pane.setBackground(background);
 			}
 		});
