@@ -220,8 +220,8 @@ public class ThreeCardPokerGame extends Application {
 		pane.getChildren().add(player1PP);
 		pane.getChildren().add(playerOneBtns);
 		player1PlayFoldBtns.relocate(250, 650);
-		playerOneBtns.relocate(100,700);
-		player1PP.relocate(100,675);
+		playerOneBtns.relocate(100,740);
+		player1PP.relocate(100,695);
 		playerOneAnte.relocate(100, 650);
 
 		//setting the textboxes and buttons for player 2
@@ -237,7 +237,7 @@ public class ThreeCardPokerGame extends Application {
 		Button playerTwoBtn2 = new Button();
 		Button playerTwoFold = new Button();
 		playerTwoFold.setText("Fold");
-		playerTwoFold.setPrefWidth(100);
+		playerTwoFold.setPrefWidth(75);
 		playerTwoBtn.setText("Ante Bet/PP Bet");
 		playerTwoBtn2.setText("Play Hand");
 		playerTwoBet.setPrefWidth(100);
@@ -252,12 +252,12 @@ public class ThreeCardPokerGame extends Application {
 		pane.getChildren().add(player2PP);
 		pane.getChildren().add(player2PlayFoldBtns);
 		player2PlayFoldBtns.relocate(850, 650);
-		player2PP.relocate(700, 675);
-		playerTwoBtns.relocate(700,700);
+		player2PP.relocate(700, 695);
+		playerTwoBtns.relocate(700,740);
 		playerTwoAnte.relocate(700, 650);
 
-		Text dealerTxt = new Text(500, 300, "Dealer");
-		dealerTxt.setFont(Font.font ("Comic Sans", 30));
+		Text dealerTxt = new Text(545, 300, "Dealer");
+		dealerTxt.setFont(Font.font ("Verdana", 30));
 
 		//adding the players and dealers cards to the pane
 		pane.getChildren().add(player1Cards);
@@ -447,36 +447,51 @@ public class ThreeCardPokerGame extends Application {
 		final int[] player2Bet = new int[1];
 		final int[] player2PairBet = new int[1];
 
+		final boolean[] player1FoldFlag = {false};
+		final boolean[] player2FoldFlag = {false};
+		final boolean[] dealerQualifyFlag = {true};
+
 		// event loop:
 		playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				int player1PlayBet = Integer.parseInt(playerOneBet.getText());
 				player1Bet[0] = player1PlayBet;
+
 				if (playerOneBet.getText() != null && player1PlayBet > 4 && player1PlayBet < 26) {
 					player1.setAnteBet(player1PlayBet);
-					playerOneBet.clear();
-					playerOneBtn.setDisable(true);
-
-
 					int player1PPBet = Integer.parseInt(playerOnePP.getText());
 					player1PairBet[0] = player1PPBet;
-					if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
-						player1.setPairPlusBet(player1PPBet);
-						playerOnePP.clear();
-					}
-					player1.setHand(dealer.dealHand());
-					PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
-					twoSecondPause.setOnFinished(e->{
-						player1Card1.getChildren().clear();
-						player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-						player1Card2.getChildren().clear();
-						player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-						player1Card3.getChildren().clear();
-						player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
 
-					});
-					twoSecondPause.play();
+					if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
+						// update player1's balance:
+						player1.setTotalWinnings(player1.getTotalWinnings()-player1Bet[0]-player1PairBet[0]);
+						pane.getChildren().remove(playerOneBalance[0]);
+
+						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerOneBalance[0]);
+
+						playerOneBtn.setDisable(true);
+						player1.setPairPlusBet(player1PPBet);
+						//playerOneBet.clear();
+						//playerOnePP.clear();
+						playerOneBet.setDisable(true);
+						playerOnePP.setDisable(true);
+
+						player1.setHand(dealer.dealHand());
+						PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
+						twoSecondPause.setOnFinished(e->{
+							player1Card1.getChildren().clear();
+							player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+							player1Card2.getChildren().clear();
+							player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+							player1Card3.getChildren().clear();
+							player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
+						});
+						twoSecondPause.play();
+					}
 				}
 			}
 		});
@@ -486,32 +501,43 @@ public class ThreeCardPokerGame extends Application {
 			public void handle(ActionEvent event) {
 				int player2PlayBet = Integer.parseInt(playerTwoBet.getText());
 				player2Bet[0] = player2PlayBet;
-				if (playerTwoBet.getText() != null && player2PlayBet > 4 && player2PlayBet < 26) {
-					player2.setAnteBet(player2PlayBet);
-					playerTwoBet.clear();
-					playerTwoBtn.setDisable(true);
 
+				if (playerTwoBet.getText() != null && player2PlayBet > 4 && player2PlayBet < 26) {
 					int player2PPBet = Integer.parseInt(playerTwoPP.getText());
 					player2PairBet[0] = player2PPBet;
+
 					if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
+						// update player2 balance:
+						player2.setTotalWinnings(player2.getTotalWinnings()-player2Bet[0]-player2PairBet[0]);
+						pane.getChildren().remove(playerTwoBalance[0]);
+
+						playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
+						playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerTwoBalance[0]);
+
+						player2.setAnteBet(player2PlayBet);
+						playerTwoBtn.setDisable(true);
 						player2.setPairPlusBet(player2PPBet);
-						playerTwoPP.clear();
+						//playerTwoPP.clear();
+						//playerTwoBet.clear();
+						playerTwoBet.setDisable(true);
+						playerTwoPP.setDisable(true);
 						player2.setHand(dealer.dealHand());
+
+						// show player 2's cards:
+						player2.setHand(dealer.dealHand());
+						PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
+						twoSecondPause.setOnFinished(e -> {
+							player2Card1.getChildren().clear();
+							player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+							player2Card2.getChildren().clear();
+							player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+							player2Card3.getChildren().clear();
+							player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+						});
+						twoSecondPause.play();
+						dealer.dealHand();
 					}
-
-					player2.setHand(dealer.dealHand());
-					PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
-					twoSecondPause.setOnFinished(e->{
-						player2Card1.getChildren().clear();
-						player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-						player2Card2.getChildren().clear();
-						player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-						player2Card3.getChildren().clear();
-						player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
-
-					});
-					twoSecondPause.play();
-					dealer.dealHand();
 				}
 			}
 		});
@@ -521,15 +547,13 @@ public class ThreeCardPokerGame extends Application {
 			public void handle(ActionEvent event) {
 				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 				twoSecondPause.setOnFinished(e->{
-
-
+					// display dealer's cards:
 					dealerCard1.getChildren().clear();
 					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + dealer.getDealersHand().get(0).getSuit() + ".png", 90, 150, true, true)));
 					dealerCard2.getChildren().clear();
 					dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + dealer.getDealersHand().get(1).getSuit() + ".png", 90, 150, true, true)));
 					dealerCard3.getChildren().clear();
 					dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + dealer.getDealersHand().get(2).getSuit() + ".png", 90, 150, true, true)));
-
 				});
 				twoSecondPause.play();
 			}
@@ -538,6 +562,8 @@ public class ThreeCardPokerGame extends Application {
 		playerOneFold.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				player1FoldFlag[0] = true;
+
 				player1Card1.getChildren().clear();
 				player1Card1.getChildren().add(purpleCardBackView);
 				player1Card2.getChildren().clear();
@@ -546,19 +572,14 @@ public class ThreeCardPokerGame extends Application {
 				player1Card3.getChildren().add(purpleCardBackView3);
 
 				playerOneFold.setDisable(true);
-
-				player1.setTotalWinnings(player1.getTotalWinnings()-player1Bet[0]-player1PairBet[0]);
-				pane.getChildren().remove(playerOneBalance[0]);
-
-				playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
-				playerOneBalance[0].setFont(Font.font ("Verdana", 20));
-				pane.getChildren().add(playerOneBalance[0]);
 			}
 		});
 
 		playerTwoFold.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				player2FoldFlag[0] = true;
+
 				player2Card1.getChildren().clear();
 				player2Card1.getChildren().add(purpleCardBackView4);
 				player2Card2.getChildren().clear();
@@ -568,14 +589,55 @@ public class ThreeCardPokerGame extends Application {
 
 				playerTwoFold.setDisable(true);
 
-				player2.setTotalWinnings(player2.getTotalWinnings()-player2Bet[0]-player2PairBet[0]);
-				pane.getChildren().remove(playerTwoBalance[0]);
+				// show dealer's cards:
+				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
+				twoSecondPause.setOnFinished(e->{
+					// display dealer's cards:
+					dealerCard1.getChildren().clear();
+					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + dealer.getDealersHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+					dealerCard2.getChildren().clear();
+					dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + dealer.getDealersHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+					dealerCard3.getChildren().clear();
+					dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + dealer.getDealersHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+				});
+				twoSecondPause.play();
 
-				playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
-				playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
-				pane.getChildren().add(playerTwoBalance[0]);
+				/* Evaluate hands: */
+
+				// check if dealer qualifies:
+				int dealerHandResult = ThreeCardLogic.evalHand(dealer.getDealersHand());
+				if (dealerHandResult == 0) {
+					for (int i = 0; i < 3; i++) {
+						if (dealer.getDealersHand().get(i).getValue() >= 12) {
+							dealerQualifyFlag[0] = true;
+							break;
+						}
+					}
+				}
+
+				// dealer did not qualify:
+				if (dealerQualifyFlag[0] == false) {
+					dealerCard1.getChildren().clear();
+					dealerCard1.getChildren().add(purpleCardBackView7);
+					dealerCard2.getChildren().clear();
+					dealerCard2.getChildren().add(purpleCardBackView8);
+					dealerCard3.getChildren().clear();
+					dealerCard3.getChildren().add(purpleCardBackView9);
+
+					if (player1FoldFlag[0] == false) {
+						// update player1 balance:
+						player1.setTotalWinnings(player1.getTotalWinnings()+player1Bet[0]);
+						pane.getChildren().remove(playerOneBalance[0]);
+
+						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerOneBalance[0]);
+					}
+				}
 			}
 		});
+
+
 
 
 
