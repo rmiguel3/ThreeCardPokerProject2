@@ -225,6 +225,8 @@ public class ThreeCardPokerGame extends Application {
 
 		Image cozmoPic = new Image("cozmo.jpg",1920,1080,true,true);
 
+		Image dojoBackground = new Image("dojo_background.png", 1920, 1080, true,true);
+
 		//Hallenbeck images
 		Image Beck = new Image("HallenBeck.JPG", 90, 150, true, true);
 		ImageView BeckView = new ImageView(Beck);
@@ -271,8 +273,6 @@ public class ThreeCardPokerGame extends Application {
 		MenuItem cozmo = new MenuItem("Hallenbeck");
 		MenuItem original = new MenuItem("Default");
 
-
-
 		menu.getItems().add(exit);
 		menu.getItems().add(freshStart);
 		menu.getItems().add(newLook);
@@ -285,7 +285,10 @@ public class ThreeCardPokerGame extends Application {
 
 		defaultSceneBorderPane.setTop(bar);
 
-		BackgroundImage myBI= new BackgroundImage(greenBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
+		// background images to be used:
+		BackgroundImage greenFeltBackgroundImage= new BackgroundImage(greenBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
+		BackgroundImage cozmoBackgroundImage= new BackgroundImage(cozmoPic, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
+		BackgroundImage dojoBackgroundImage= new BackgroundImage(dojoBackground, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
 
 		//player 1's card backs
 		HBox player1Card1 = new HBox(purpleCardBackView);
@@ -303,7 +306,7 @@ public class ThreeCardPokerGame extends Application {
 		HBox dealerCard3 = new HBox(purpleCardBackView9);
 
 		//Adding the cards to each of their respected HBox
-		HBox player1Cards = new HBox(55,player1Card1, player1Card2, player1Card3);
+		HBox player1Cards = new HBox(55, player1Card1, player1Card2, player1Card3);
 		HBox player2Cards = new HBox(55,player2Card1, player2Card2, player2Card3);
 		HBox dealerCards = new HBox(55,dealerCard1, dealerCard2, dealerCard3);
 
@@ -313,7 +316,7 @@ public class ThreeCardPokerGame extends Application {
 		gameNotes.setPrefWidth(250);
 		defaultSceneBorderPane.setLeft(gameNotes);
 
-		//setting the textbox and buttons for player 1
+		//setting the textboxes and buttons for player 1
 		Text playerOneTxt = new Text(200, 450, "Player 1");
 		playerOneTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerOneBet = new TextField();
@@ -335,7 +338,7 @@ public class ThreeCardPokerGame extends Application {
 		playerOneBtns.relocate(100,680);
 		playerOneBets.relocate(100, 650);
 
-		//setting the textbox and buttons for player 2
+		//setting the textboxes and buttons for player 2
 		Text playerTwoTxt = new Text(800, 450, "Player 2");
 		playerTwoTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerTwoBet = new TextField();
@@ -380,24 +383,36 @@ public class ThreeCardPokerGame extends Application {
 				dealerCards.getChildren().clear();
 
 				//player 1's card backs
-				HBox player1Card1 = new HBox(BeckView);
-				HBox player1Card2 = new HBox(BeckView2);
-				HBox player1Card3 = new HBox(BeckView3);
+				player1Card1.getChildren().clear();
+				player1Card1.getChildren().add(BeckView);
+				player1Card2.getChildren().clear();
+				player1Card2.getChildren().add(BeckView2);
+				player1Card3.getChildren().clear();
+				player1Card3.getChildren().add(BeckView3);
 
 				//player 2's card backs
-				HBox player2Card1 = new HBox(BeckView4);
-				HBox player2Card2 = new HBox(BeckView5);
-				HBox player2Card3 = new HBox(BeckView6);
+				player2Card1.getChildren().clear();
+				player2Card1.getChildren().add(BeckView4);
+				player2Card2.getChildren().clear();
+				player2Card2.getChildren().add(BeckView5);
+				player2Card3.getChildren().clear();
+				player2Card3.getChildren().add(BeckView6);
 
 				//Dealers's card backs
-				HBox dealerCard1 = new HBox(BeckView7);
-				HBox dealerCard2 = new HBox(BeckView8);
-				HBox dealerCard3 = new HBox(BeckView9);
+				dealerCard1.getChildren().clear();
+				dealerCard1.getChildren().add(BeckView7);
+				dealerCard2.getChildren().clear();
+				dealerCard2.getChildren().add(BeckView8);
+				dealerCard3.getChildren().clear();
+				dealerCard3.getChildren().add(BeckView9);
 
 				//Adding the cards to each of their respective HBox
-				HBox player1Cards = new HBox(1000,player1Card1, player1Card2, player1Card3);
-				HBox player2Cards = new HBox(1000,player2Card1, player2Card2, player2Card3);
-				HBox dealerCards = new HBox(1000,dealerCard1, dealerCard2, dealerCard3);
+				player1Cards.getChildren().clear();
+				player1Cards.getChildren().addAll(player1Card1, player1Card2, player1Card3);
+				player2Cards.getChildren().clear();
+				player2Cards.getChildren().addAll(player2Card1, player2Card2, player2Card3);
+				dealerCards.getChildren().clear();
+				dealerCards.getChildren().addAll(dealerCard1,dealerCard2, dealerCard3);
 
 
 				player1Cards.relocate(100,500);
@@ -408,8 +423,7 @@ public class ThreeCardPokerGame extends Application {
 				pane.getChildren().add(player2Cards);
 				pane.getChildren().add(dealerCards);
 
-				BackgroundImage myBI= new BackgroundImage(cozmoPic, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
-				Background background = new Background(myBI);
+				Background background = new Background(cozmoBackgroundImage);
 				pane.setBackground(background);
 			}
 		});
@@ -421,25 +435,37 @@ public class ThreeCardPokerGame extends Application {
 				player2Cards.getChildren().clear();
 				dealerCards.getChildren().clear();
 
-				//player 1's card backs
-				HBox player1Card1 = new HBox(purpleCardBackView);
-				HBox player1Card2 = new HBox(purpleCardBackView2);
-				HBox player1Card3 = new HBox(purpleCardBackView3);
+				// display player 1's cards
+				player1Card1.getChildren().clear();
+				player1Card1.getChildren().add(purpleCardBackView);
+				player1Card2.getChildren().clear();
+				player1Card2.getChildren().add(purpleCardBackView2);
+				player1Card3.getChildren().clear();
+				player1Card3.getChildren().add(purpleCardBackView3);
 
 				//player 2's card backs
-				HBox player2Card1 = new HBox(purpleCardBackView4);
-				HBox player2Card2 = new HBox(purpleCardBackView5);
-				HBox player2Card3 = new HBox(purpleCardBackView6);
+				player2Card1.getChildren().clear();
+				player2Card1.getChildren().add(purpleCardBackView4);
+				player2Card2.getChildren().clear();
+				player2Card2.getChildren().add(purpleCardBackView5);
+				player2Card3.getChildren().clear();
+				player2Card3.getChildren().add(purpleCardBackView6);
 
 				//Dealers's card backs
-				HBox dealerCard1 = new HBox(purpleCardBackView7);
-				HBox dealerCard2 = new HBox(purpleCardBackView8);
-				HBox dealerCard3 = new HBox(purpleCardBackView9);
+				dealerCard1.getChildren().clear();
+				dealerCard1.getChildren().add(purpleCardBackView7);
+				dealerCard2.getChildren().clear();
+				dealerCard2.getChildren().add(purpleCardBackView8);
+				dealerCard3.getChildren().clear();
+				dealerCard3.getChildren().add(purpleCardBackView9);
 
 				//Adding the cards to each of their respected HBox
-				HBox player1Cards = new HBox(55,player1Card1, player1Card2, player1Card3);
-				HBox player2Cards = new HBox(55,player2Card1, player2Card2, player2Card3);
-				HBox dealerCards = new HBox(55,dealerCard1, dealerCard2, dealerCard3);
+				player1Cards.getChildren().clear();
+				player1Cards.getChildren().addAll(player1Card1, player1Card2, player1Card3);
+				player2Cards.getChildren().clear();
+				player2Cards.getChildren().addAll(player2Card1, player2Card2, player2Card3);
+				dealerCards.getChildren().clear();
+				dealerCards.getChildren().addAll(dealerCard1,dealerCard2, dealerCard3);
 
 
 				player1Cards.relocate(100,500);
@@ -450,14 +476,13 @@ public class ThreeCardPokerGame extends Application {
 				pane.getChildren().add(player2Cards);
 				pane.getChildren().add(dealerCards);
 
-				BackgroundImage myBI= new BackgroundImage(greenBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
-				Background background = new Background(myBI);
+				Background background = new Background(greenFeltBackgroundImage);
 				pane.setBackground(background);
-			};
+			}
 		};
 		original.setOnAction(startOfGame);
 
-		Background background = new Background(myBI);
+		Background background = new Background(greenFeltBackgroundImage);
 		pane.setBackground(background);
 
 		defaultSceneBorderPane.setCenter(pane);
