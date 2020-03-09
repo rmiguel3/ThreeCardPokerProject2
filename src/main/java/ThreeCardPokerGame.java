@@ -457,25 +457,27 @@ public class ThreeCardPokerGame extends Application {
 					player1.setAnteBet(player1PlayBet);
 					playerOneBet.clear();
 					playerOneBtn.setDisable(true);
-				}
-				int player1PPBet = Integer.parseInt(playerOnePP.getText());
-				player1PairBet[0] = player1PPBet;
-				if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
-					player1.setPairPlusBet(player1PPBet);
-					playerOnePP.clear();
-				}
-				player1.setHand(dealer.dealHand());
-				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
-				twoSecondPause.setOnFinished(e->{
-					player1Card1.getChildren().clear();
-					player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-					player1Card2.getChildren().clear();
-					player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-					player1Card3.getChildren().clear();
-					player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
 
-				});
-				twoSecondPause.play();
+
+					int player1PPBet = Integer.parseInt(playerOnePP.getText());
+					player1PairBet[0] = player1PPBet;
+					if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
+						player1.setPairPlusBet(player1PPBet);
+						playerOnePP.clear();
+					}
+					player1.setHand(dealer.dealHand());
+					PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
+					twoSecondPause.setOnFinished(e->{
+						player1Card1.getChildren().clear();
+						player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+						player1Card2.getChildren().clear();
+						player1Card2.getChildren().add(new ImageView(new Image("" + player1.getHand().get(1).getValue() + player1.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+						player1Card3.getChildren().clear();
+						player1Card3.getChildren().add(new ImageView(new Image("" + player1.getHand().get(2).getValue() + player1.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
+					});
+					twoSecondPause.play();
+				}
 			}
 		});
 
@@ -488,34 +490,35 @@ public class ThreeCardPokerGame extends Application {
 					player2.setAnteBet(player2PlayBet);
 					playerTwoBet.clear();
 					playerTwoBtn.setDisable(true);
-				}
-				int player2PPBet = Integer.parseInt(playerTwoPP.getText());
-				player2PairBet[0] = player2PPBet;
-				if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
-					player2.setPairPlusBet(player2PPBet);
-					playerTwoPP.clear();
-					player2.setHand(dealer.dealHand());
-				}
-				player2.setHand(dealer.dealHand());
-				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
-				twoSecondPause.setOnFinished(e->{
-					player2Card1.getChildren().clear();
-					player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
-					player2Card2.getChildren().clear();
-					player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
-					player2Card3.getChildren().clear();
-					player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
 
-				});
-				twoSecondPause.play();
-				dealer.dealHand();
+					int player2PPBet = Integer.parseInt(playerTwoPP.getText());
+					player2PairBet[0] = player2PPBet;
+					if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
+						player2.setPairPlusBet(player2PPBet);
+						playerTwoPP.clear();
+						player2.setHand(dealer.dealHand());
+					}
+
+					player2.setHand(dealer.dealHand());
+					PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
+					twoSecondPause.setOnFinished(e->{
+						player2Card1.getChildren().clear();
+						player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+						player2Card2.getChildren().clear();
+						player2Card2.getChildren().add(new ImageView(new Image("" + player2.getHand().get(1).getValue() + player2.getHand().get(1).getSuit() + ".png", 90, 150, true, true)));
+						player2Card3.getChildren().clear();
+						player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
+
+					});
+					twoSecondPause.play();
+					dealer.dealHand();
+				}
 			}
 		});
 
 		playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-
 				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 				twoSecondPause.setOnFinished(e->{
 
@@ -542,6 +545,8 @@ public class ThreeCardPokerGame extends Application {
 				player1Card3.getChildren().clear();
 				player1Card3.getChildren().add(purpleCardBackView3);
 
+				playerOneFold.setDisable(true);
+
 				player1.setTotalWinnings(player1.getTotalWinnings()-player1Bet[0]-player1PairBet[0]);
 				pane.getChildren().remove(playerOneBalance[0]);
 
@@ -561,6 +566,8 @@ public class ThreeCardPokerGame extends Application {
 				player2Card3.getChildren().clear();
 				player2Card3.getChildren().add(purpleCardBackView6);
 
+				playerTwoFold.setDisable(true);
+
 				player2.setTotalWinnings(player2.getTotalWinnings()-player2Bet[0]-player2PairBet[0]);
 				pane.getChildren().remove(playerTwoBalance[0]);
 
@@ -569,6 +576,8 @@ public class ThreeCardPokerGame extends Application {
 				pane.getChildren().add(playerTwoBalance[0]);
 			}
 		});
+
+
 
 
 
