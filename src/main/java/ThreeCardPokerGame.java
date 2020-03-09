@@ -446,10 +446,13 @@ public class ThreeCardPokerGame extends Application {
 		final int[] player1PairBet = new int[1];
 		final int[] player2Bet = new int[1];
 		final int[] player2PairBet = new int[1];
+		final int[] anteBet = new int[1];
 
 		final boolean[] player1FoldFlag = {false};
 		final boolean[] player2FoldFlag = {false};
-		final boolean[] dealerQualifyFlag = {true};
+		final boolean[] dealerQualifyFlag = {false};
+
+
 
 		// event loop:
 		playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -462,6 +465,7 @@ public class ThreeCardPokerGame extends Application {
 					player1.setAnteBet(player1PlayBet);
 					int player1PPBet = Integer.parseInt(playerOnePP.getText());
 					player1PairBet[0] = player1PPBet;
+					anteBet[0] += player1PlayBet;
 
 					if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
 						// update player1's balance:
@@ -512,6 +516,7 @@ public class ThreeCardPokerGame extends Application {
 				if (playerTwoBet.getText() != null && player2PlayBet > 4 && player2PlayBet < 26) {
 					int player2PPBet = Integer.parseInt(playerTwoPP.getText());
 					player2PairBet[0] = player2PPBet;
+					anteBet[0] += player2PlayBet;
 
 					if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
 						// update player2 balance:
@@ -543,6 +548,8 @@ public class ThreeCardPokerGame extends Application {
 							player2Card3.getChildren().add(new ImageView(new Image("" + player2.getHand().get(2).getValue() + player2.getHand().get(2).getSuit() + ".png", 90, 150, true, true)));
 						});
 						twoSecondPause.play();
+
+						// set dealer's hand:
 						dealer.dealHand();
 
 						//evaluates Pair Plus and adjusts the balance on the screen for Player 2
@@ -570,6 +577,50 @@ public class ThreeCardPokerGame extends Application {
 					dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + dealer.getDealersHand().get(2).getSuit() + ".png", 90, 150, true, true)));
 				});
 				twoSecondPause.play();
+
+				/* Evaluate hands: */
+
+				// check if dealer qualifies:
+				int dealerHandResult = ThreeCardLogic.evalHand(dealer.getDealersHand());
+				if (dealerHandResult == 0) {
+					for (int i = 0; i < 3; i++) {
+						if (dealer.getDealersHand().get(i).getValue() >= 12) {
+							dealerQualifyFlag[0] = true; // dealer did qualify, so set flag to true
+							break;
+						}
+					}
+				}
+
+				// dealer did not qualify, so flip cards over:
+				if (dealerQualifyFlag[0] == false) {
+					dealerCard1.getChildren().clear();
+					dealerCard1.getChildren().add(purpleCardBackView7);
+					dealerCard2.getChildren().clear();
+					dealerCard2.getChildren().add(purpleCardBackView8);
+					dealerCard3.getChildren().clear();
+					dealerCard3.getChildren().add(purpleCardBackView9);
+
+					// player1 did not fold, so they get their bet back:
+					if (player1FoldFlag[0] == false) {
+						// update player1 balance:
+						player1.setTotalWinnings(player1.getTotalWinnings()+player1Bet[0]);
+						pane.getChildren().remove(playerOneBalance[0]);
+
+						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerOneBalance[0]);
+					}
+					// player1 did fold, but player2 did not, so player2 gets their bet back:
+					else {
+						// update player2 balance:
+						player2.setTotalWinnings(player2.getTotalWinnings()+player2Bet[0]);
+						pane.getChildren().remove(playerTwoBalance[0]);
+
+						playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
+						playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerTwoBalance[0]);
+					}
+				}
 			}
 		});
 
@@ -623,13 +674,13 @@ public class ThreeCardPokerGame extends Application {
 				if (dealerHandResult == 0) {
 					for (int i = 0; i < 3; i++) {
 						if (dealer.getDealersHand().get(i).getValue() >= 12) {
-							dealerQualifyFlag[0] = true;
+							dealerQualifyFlag[0] = true; // dealer did qualify, so set flag to true
 							break;
 						}
 					}
 				}
 
-				// dealer did not qualify:
+				// dealer did not qualify, so flip cards over:
 				if (dealerQualifyFlag[0] == false) {
 					dealerCard1.getChildren().clear();
 					dealerCard1.getChildren().add(purpleCardBackView7);
@@ -638,6 +689,7 @@ public class ThreeCardPokerGame extends Application {
 					dealerCard3.getChildren().clear();
 					dealerCard3.getChildren().add(purpleCardBackView9);
 
+					// player1 did not fold, so they get their bet back:
 					if (player1FoldFlag[0] == false) {
 						// update player1 balance:
 						player1.setTotalWinnings(player1.getTotalWinnings()+player1Bet[0]);
