@@ -573,7 +573,7 @@ public class ThreeCardPokerGame extends Application {
 					player1.setAnteBet(player1.getAnteBet()+player1PlayBet);
 
 					if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
-						gameNotes.setText("Player 1 bet $" + player1.getPlayBet() " for ante/play bet and $" + player1.getPairPlusBet() + " for pair plus bet");
+						gameNotes.setText("Player 1 bet $" + player1.getPlayBet() + " for ante/play bet and $" + player1.getPairPlusBet() + " for pair plus bet");
 						// update player1's balance:
 						//RESETS
 						player1.setTotalWinnings(player1.getTotalWinnings()-player1.getPlayBet()-player1.getPairPlusBet());
@@ -853,7 +853,7 @@ public class ThreeCardPokerGame extends Application {
 					player2.setAnteBet(player2.getAnteBet()+player2PlayBet);
 
 					if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
-						gameNotes.setText("Player 2 bet $" + player2.getPlayBet() " for ante/play bet and $" + player2.getPairPlusBet() + " for pair plus bet");
+						gameNotes.setText("Player 2 bet $" + player2.getPlayBet() + " for ante/play bet and $" + player2.getPairPlusBet() + " for pair plus bet");
 						// update player2 balance:
 						//RESETS
 						player2.setTotalWinnings(player2.getTotalWinnings()-player2.getPlayBet()-player2.getPairPlusBet());
@@ -952,7 +952,8 @@ public class ThreeCardPokerGame extends Application {
 				twoSecPause.setOnFinished(e-> {
 					// dealer did not qualify, so flip cards over:
 					if (dealerQualifyFlag[0] == false) {
-						//gameNotes.setText("Dealer");
+						gameNotes.setText("Dealer did not qualify; ante bet is pushed");
+
 						dealerCard1.getChildren().clear();
 						dealerCard1.getChildren().add(purpleCardBackView7);
 						dealerCard2.getChildren().clear();
@@ -962,6 +963,8 @@ public class ThreeCardPokerGame extends Application {
 
 						// player1 did not fold, so they get their bet back:
 						if (player1FoldFlag[0] == false) {
+							gameNotes.setText("Player 1 did not fold, so they receive their money back");
+
 							// update player1 balance:
 							//RESETS
 							player1.setTotalWinnings(player1.getTotalWinnings()+player1.getPlayBet());
@@ -995,6 +998,7 @@ public class ThreeCardPokerGame extends Application {
 
 							// tie between player1 and dealer
 							if (player1VsDealer == 0) {
+								gameNotes.setText("Player 1 and dealer tied");
 								player1.setTotalWinnings(player1.getTotalWinnings() + player1.getPlayBet());
 								pane.getChildren().remove(playerOneBalance[0]);
 								playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
@@ -1007,6 +1011,7 @@ public class ThreeCardPokerGame extends Application {
 
 							// dealer wins over player1:
 							if (player1VsDealer == 1) {
+								gameNotes.setText("Dealer wins over player 1");
 								player1.setTotalWinnings(player1.getTotalWinnings() - player1.getPlayBet() - player1.getAnteBet());
 								pane.getChildren().remove(playerOneBalance[0]);
 								playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
@@ -1021,6 +1026,8 @@ public class ThreeCardPokerGame extends Application {
 
 							// player1 wins:
 							if (player1VsDealer == 2) {
+								gameNotes.setText("Player 1 wins over dealer");
+
 								player1.setTotalWinnings(player1.getTotalWinnings() + 2 * (player1.getPlayBet() + player1.getAnteBet()));
 								pane.getChildren().remove(playerOneBalance[0]);
 								playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
@@ -1035,6 +1042,7 @@ public class ThreeCardPokerGame extends Application {
 
 							// tie between player2 and dealer
 							if (player2VsDealer == 0) {
+								gameNotes.setText("Player 2 and dealer tie");
 								player2.setTotalWinnings(player2.getTotalWinnings() + player2.getPlayBet());
 								pane.getChildren().remove(playerTwoBalance[0]);
 								playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
@@ -1047,6 +1055,8 @@ public class ThreeCardPokerGame extends Application {
 
 							// dealer wins over player2:
 							if (player2VsDealer == 1) {
+								gameNotes.setText("Dealer wins over player 2");
+
 								player2.setTotalWinnings(player2.getTotalWinnings() - player2.getPlayBet() - player2.getAnteBet());
 								pane.getChildren().remove(playerTwoBalance[0]);
 								playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
@@ -1060,6 +1070,8 @@ public class ThreeCardPokerGame extends Application {
 
 							// player2 wins over dealer:
 							if (player2VsDealer == 2) {
+								gameNotes.setText("Player 2 wins over dealer");
+
 								player2.setTotalWinnings(player2.getTotalWinnings() + 2 * (player2.getPlayBet() + player2.getAnteBet()));
 								pane.getChildren().remove(playerTwoBalance[0]);
 								playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
