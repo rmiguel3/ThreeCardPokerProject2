@@ -660,8 +660,7 @@ public class ThreeCardPokerGame extends Application {
 				// show dealer's cards:
 
 				/* Evaluate hands: */
-				PauseTransition twoSecPause = new PauseTransition(Duration.seconds(2));
-				twoSecPause.setOnFinished(e -> {// check if dealer qualifies:
+					// check if dealer qualifies:
 					// display dealer's cards:
 					dealerCard1.getChildren().clear();
 					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + dealer.getDealersHand().get(0).getSuit() + ".png", 90, 150, true, true)));
@@ -679,7 +678,8 @@ public class ThreeCardPokerGame extends Application {
 							}
 						}
 					}
-
+				PauseTransition twoSecPause = new PauseTransition(Duration.seconds(2));
+				twoSecPause.setOnFinished(e -> {
 					// dealer did not qualify, so flip cards over:
 					if (dealerQualifyFlag[0] == false) {
 						gameNotes.setText("Dealer did not qualify; ante bet is pushed");
@@ -917,18 +917,13 @@ public class ThreeCardPokerGame extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				playerTwoBtn2.setDisable(true);
-				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
-				twoSecondPause.setOnFinished(e->{
 					// display dealer's cards:
-					//RESETS
 					dealerCard1.getChildren().clear();
-					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + dealer.getDealersHand().get(0).getSuit() + ".png", 90, 150, true, true)));
 					dealerCard2.getChildren().clear();
-					dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + dealer.getDealersHand().get(1).getSuit() + ".png", 90, 150, true, true)));
 					dealerCard3.getChildren().clear();
+					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + dealer.getDealersHand().get(0).getSuit() + ".png", 90, 150, true, true)));
+					dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + dealer.getDealersHand().get(1).getSuit() + ".png", 90, 150, true, true)));
 					dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + dealer.getDealersHand().get(2).getSuit() + ".png", 90, 150, true, true)));
-				});
-				twoSecondPause.play();
 
 				/* Evaluate hands: */
 
