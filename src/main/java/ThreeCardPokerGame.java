@@ -134,33 +134,6 @@ public class ThreeCardPokerGame extends Application {
 
 		BorderPane defaultSceneBorderPane = new BorderPane();
 
-		//creating the options drop down menu
-		Menu menu = new Menu("Options");
-
-		//adding different types of options
-		MenuItem exit = new MenuItem("Exit");
-		exit.setOnAction(e -> Platform.exit());
-
-		MenuItem freshStart = new MenuItem("Fresh Start");
-
-		Menu newLook = new Menu("New Look");
-		MenuItem original = new MenuItem("Default");
-		MenuItem cozmo = new MenuItem("Hallenbeck");
-		MenuItem cardJitsu = new MenuItem("Club Penguin Card Jitsu");
-
-		menu.getItems().add(exit);
-		menu.getItems().add(freshStart);
-		menu.getItems().add(newLook);
-		newLook.getItems().add(original);
-		newLook.getItems().add(cozmo);
-		newLook.getItems().add(cardJitsu);
-
-		MenuBar bar = new MenuBar();
-
-		bar.getMenus().add(menu);
-
-		defaultSceneBorderPane.setTop(bar);
-
 		// background images to be used:
 		BackgroundImage greenFeltBackgroundImage= new BackgroundImage(greenBackground, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
 		BackgroundImage cozmoBackgroundImage= new BackgroundImage(cozmoPic, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,  BackgroundSize.DEFAULT);
@@ -188,18 +161,23 @@ public class ThreeCardPokerGame extends Application {
 
 
 		Pane pane = new Pane();
-		TextField gameNotes = new TextField();
+		TextArea gameNotes = new TextArea();
+		gameNotes.setDisable(true);
 		gameNotes.setPrefWidth(250);
-		defaultSceneBorderPane.setLeft(gameNotes);
+		defaultSceneBorderPane.setBottom(gameNotes);
 
 		//setting the textboxes and buttons for player 1
 		Text playerOneTxt = new Text(200, 450, "Player 1");
 		final Text[] playerOneBalance = {new Text(200, 475, "Balance: $" + player1.getTotalWinnings())};
+		playerOneBalance[0].setFill(Color.DARKRED);
+		playerOneTxt.setStyle("-fx-font-weight: bold");
+		playerOneBalance[0].setStyle("-fx-font-weight: bold");
+		playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+		playerOneTxt.setFill(Color.DARKRED);
 		playerOneBalance[0].setFont(Font.font ("Verdana", 20));
 		playerOneTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerOneAnteBet = new TextField();
 		TextField playerOnePP = new TextField();
-		TextField playerOnePlayBet = new TextField();
 		Button playerOneBtn = new Button();
 		Button playerOneFold = new Button();
 		Button playerOneBtn2 = new Button();
@@ -228,7 +206,11 @@ public class ThreeCardPokerGame extends Application {
 		//setting the textboxes and buttons for player 2
 		Text playerTwoTxt = new Text(800, 450, "Player 2");
 		final Text[] playerTwoBalance = {new Text(800, 475, "Balance: $" + player2.getTotalWinnings())};
+		playerTwoBalance[0].setFill(Color.DARKRED);
+		playerTwoTxt.setStyle("-fx-font-weight: bold");
+		playerTwoBalance[0].setStyle("-fx-font-weight: bold");
 		playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
+		playerTwoTxt.setFill(Color.DARKRED);
 		playerTwoTxt.setFont(Font.font ("Verdana", 30));
 		TextField playerTwoBet = new TextField();
 		TextField playerTwoPP = new TextField();
@@ -259,6 +241,8 @@ public class ThreeCardPokerGame extends Application {
 
 		Text dealerTxt = new Text(545, 300, "Dealer");
 		dealerTxt.setFont(Font.font ("Verdana", 30));
+		dealerTxt.setStyle("-fx-font-weight: bold");
+		dealerTxt.setFill(Color.DARKRED);
 
 		//adding the players and dealers cards to the pane
 		pane.getChildren().add(player1Cards);
@@ -274,9 +258,117 @@ public class ThreeCardPokerGame extends Application {
 		player2Cards.relocate(700, 500);
 		dealerCards.relocate(400, 100);
 
+		// flags to detect which style is active:
+		final boolean[] defaultStyleFlag = {true};
+		final boolean[] hallenbeckStyleFlag = {false};
+		final boolean[] cardJitsuStyleFlag = {false};
+
+		//creating the options drop down menu
+		Menu menu = new Menu("Options");
+
+		//adding different types of options
+		MenuItem exit = new MenuItem("Exit");
+		exit.setOnAction(e -> Platform.exit());
+
+		MenuItem freshStart = new MenuItem("Fresh Start");
+		freshStart.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// reset player winnings and the deck:
+				player1.setTotalWinnings(0);
+				player2.setTotalWinnings(0);
+				dealer.getTheDeck().newDeck();
+
+				// set style flags:
+				defaultStyleFlag[0] = true;
+				hallenbeckStyleFlag[0] = false;
+				cardJitsuStyleFlag[0] = false;
+
+				// re-enable player1's buttons and text fields:
+				playerOneBtn.setDisable(false);
+				playerOneBtn2.setDisable(false);
+				playerOneFold.setDisable(false);
+
+				playerOneAnteBet.setDisable(false);
+				playerOnePP.setDisable(false);
+
+				// re=enable player2's buttons and text fields:
+				playerTwoBtn.setDisable(false);
+				playerTwoBtn2.setDisable(false);
+				playerTwoFold.setDisable(false);
+
+				playerTwoBet.setDisable(false);
+				playerTwoPP.setDisable(false);
+
+				// display player 1's card backs:
+				player1Card1.getChildren().clear();
+				player1Card2.getChildren().clear();
+				player1Card3.getChildren().clear();
+				player1Card1.getChildren().add(purpleCardBackView);
+				player1Card2.getChildren().add(purpleCardBackView2);
+				player1Card3.getChildren().add(purpleCardBackView3);
+
+				// display player 2's card backs:
+				player2Card1.getChildren().clear();
+				player2Card2.getChildren().clear();
+				player2Card3.getChildren().clear();
+				player2Card1.getChildren().add(purpleCardBackView4);
+				player2Card2.getChildren().add(purpleCardBackView5);
+				player2Card3.getChildren().add(purpleCardBackView6);
+
+
+				// display dealers's card backs
+				dealerCard1.getChildren().clear();
+				dealerCard2.getChildren().clear();
+				dealerCard3.getChildren().clear();
+				dealerCard1.getChildren().add(purpleCardBackView7);
+				dealerCard2.getChildren().add(purpleCardBackView8);
+				dealerCard3.getChildren().add(purpleCardBackView9);
+
+				player1.setTotalWinnings(0);
+				pane.getChildren().remove(playerOneBalance[0]);
+				playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
+				playerOneBalance[0].setFont(Font.font("Verdana", 20));
+				playerOneBalance[0].setStyle("-fx-font-weight: bold");
+				playerOneBalance[0].setFill(Color.DARKRED);
+				pane.getChildren().add(playerOneBalance[0]);
+
+				player2.setTotalWinnings(0);
+				pane.getChildren().remove(playerTwoBalance[0]);
+				playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
+				playerTwoBalance[0].setFont(Font.font("Verdana", 20));
+				playerTwoBalance[0].setStyle("-fx-font-weight: bold");
+				playerTwoBalance[0].setFill(Color.DARKRED);
+				pane.getChildren().add(playerTwoBalance[0]);
+			}
+		});
+
+		Menu newLook = new Menu("New Look");
+		MenuItem original = new MenuItem("Default");
+		MenuItem cozmo = new MenuItem("Hallenbeck");
+		MenuItem cardJitsu = new MenuItem("Club Penguin Card Jitsu");
+
+		menu.getItems().add(exit);
+		menu.getItems().add(freshStart);
+		menu.getItems().add(newLook);
+		newLook.getItems().add(original);
+		newLook.getItems().add(cozmo);
+		newLook.getItems().add(cardJitsu);
+
+		MenuBar bar = new MenuBar();
+
+		bar.getMenus().add(menu);
+
+		defaultSceneBorderPane.setTop(bar);
+
 		cozmo.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event){
+				// set style flags:
+				defaultStyleFlag[0] = false;
+				hallenbeckStyleFlag[0] = true;
+				cardJitsuStyleFlag[0] = false;
+
 				player1Cards.getChildren().clear();
 				player2Cards.getChildren().clear();
 				dealerCards.getChildren().clear();
@@ -332,6 +424,11 @@ public class ThreeCardPokerGame extends Application {
 		cardJitsu.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event){
+				// set style flags:
+				defaultStyleFlag[0] = false;
+				hallenbeckStyleFlag[0] = false;
+				cardJitsuStyleFlag[0] = true;
+
 				player1Cards.getChildren().clear();
 				player2Cards.getChildren().clear();
 				dealerCards.getChildren().clear();
@@ -388,6 +485,11 @@ public class ThreeCardPokerGame extends Application {
 		original.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				// set style flags:
+				defaultStyleFlag[0] = true;
+				hallenbeckStyleFlag[0] = false;
+				cardJitsuStyleFlag[0] = false;
+
 				player1Cards.getChildren().clear();
 				player2Cards.getChildren().clear();
 				dealerCards.getChildren().clear();
@@ -451,17 +553,9 @@ public class ThreeCardPokerGame extends Application {
 		primaryStage.setScene(defaultScene);
 		primaryStage.show();
 
-//		final int[] player1Bet = new int[1];
-//		final int[] player1PairBet = new int[1];
-//		final int[] player2Bet = new int[1];
-//		final int[] player2PairBet = new int[1];
-//		final int[] anteBet = new int[1];
-
 		final boolean[] player1FoldFlag = {false};
 		final boolean[] player2FoldFlag = {false};
 		final boolean[] dealerQualifyFlag = {false};
-
-
 
 		/* Event loop: */
 		// player1 play / ante bet button:
@@ -479,12 +573,16 @@ public class ThreeCardPokerGame extends Application {
 					player1.setAnteBet(player1.getAnteBet()+player1PlayBet);
 
 					if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
+						gameNotes.setText("Player 1 bet $" + player1.getPlayBet() " for ante/play bet and $" + player1.getPairPlusBet() + " for pair plus bet");
 						// update player1's balance:
 						//RESETS
 						player1.setTotalWinnings(player1.getTotalWinnings()-player1.getPlayBet()-player1.getPairPlusBet());
 						pane.getChildren().remove(playerOneBalance[0]);
 
 						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						playerOneBalance[0].setFill(Color.DARKRED);
+						playerOneBalance[0].setStyle("-fx-font-weight: bold");
 						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
 						pane.getChildren().add(playerOneBalance[0]);
 
@@ -493,10 +591,7 @@ public class ThreeCardPokerGame extends Application {
 						playerOneAnteBet.setDisable(true);
 						playerOnePP.setDisable(true);
 
-						//player1.setHand(dealer.dealHand());
-						player1.getHand().add(new Card('H', 3));
-						player1.getHand().add(new Card('H', 5));
-						player1.getHand().add(new Card('S', 5));
+						player1.setHand(dealer.dealHand());
 
 						PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 						twoSecondPause.setOnFinished(e->{
@@ -517,6 +612,9 @@ public class ThreeCardPokerGame extends Application {
 						pane.getChildren().remove(playerOneBalance[0]);
 						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
 						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+						playerOneBalance[0].setFill(Color.DARKRED);
+						playerOneBalance[0].setStyle("-fx-font-weight: bold");
+						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
 						pane.getChildren().add(playerOneBalance[0]);
 					}
 				}
@@ -527,6 +625,7 @@ public class ThreeCardPokerGame extends Application {
 		playerOneFold.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				gameNotes.setText("Player 1 folded");
 				//RESETS
 				player1FoldFlag[0] = true;
 
@@ -545,6 +644,7 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoFold.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				gameNotes.setText("Player 2 folded");
 				//RESETS
 				player2FoldFlag[0] = true;
 
@@ -558,8 +658,10 @@ public class ThreeCardPokerGame extends Application {
 				playerTwoFold.setDisable(true);
 
 				// show dealer's cards:
-				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
-				twoSecondPause.setOnFinished(e->{
+
+				/* Evaluate hands: */
+				PauseTransition twoSecPause = new PauseTransition(Duration.seconds(2));
+				twoSecPause.setOnFinished(e -> {// check if dealer qualifies:
 					// display dealer's cards:
 					dealerCard1.getChildren().clear();
 					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + dealer.getDealersHand().get(0).getSuit() + ".png", 90, 150, true, true)));
@@ -567,91 +669,173 @@ public class ThreeCardPokerGame extends Application {
 					dealerCard2.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(1).getValue() + dealer.getDealersHand().get(1).getSuit() + ".png", 90, 150, true, true)));
 					dealerCard3.getChildren().clear();
 					dealerCard3.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(2).getValue() + dealer.getDealersHand().get(2).getSuit() + ".png", 90, 150, true, true)));
-				});
-				twoSecondPause.play();
+					int dealerHandResult = ThreeCardLogic.evalHand(dealer.getDealersHand());
 
-				/* Evaluate hands: */
-
-				// check if dealer qualifies:
-				int dealerHandResult = ThreeCardLogic.evalHand(dealer.getDealersHand());
-				if (dealerHandResult == 0) {
-					for (int i = 0; i < 3; i++) {
-						if (dealer.getDealersHand().get(i).getValue() >= 12) {
-							dealerQualifyFlag[0] = true; // dealer did qualify, so set flag to true
-							break;
+					if (dealerHandResult == 0) {
+						for (int i = 0; i < 3; i++) {
+							if (dealer.getDealersHand().get(i).getValue() >= 12) {
+								dealerQualifyFlag[0] = true; // dealer did qualify, so set flag to true
+								break;
+							}
 						}
 					}
-				}
 
-				// dealer did not qualify, so flip cards over:
-				if (dealerQualifyFlag[0] == false) {
+					// dealer did not qualify, so flip cards over:
+					if (dealerQualifyFlag[0] == false) {
+						gameNotes.setText("Dealer did not qualify; ante bet is pushed");
+						dealerCard1.getChildren().clear();
+						dealerCard1.getChildren().add(purpleCardBackView7);
+						dealerCard2.getChildren().clear();
+						dealerCard2.getChildren().add(purpleCardBackView8);
+						dealerCard3.getChildren().clear();
+						dealerCard3.getChildren().add(purpleCardBackView9);
+
+						// player1 did not fold, so they get their bet back:
+						if (player1FoldFlag[0] == false) {
+							gameNotes.setText("Player 1 did not fold, so they receive their money back");
+							// update player1 balance:
+							player1.setTotalWinnings(player1.getTotalWinnings()+player1.getPlayBet());
+							pane.getChildren().remove(playerOneBalance[0]);
+
+							playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+							playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+							pane.getChildren().add(playerOneBalance[0]);
+						}
+					}
+					// dealer did qualify:
+					else {
+						// evaluate player1 and dealer's hands:
+						int player1VsDealer = -1;
+						int player2VsDealer = -1;
+
+						if (!player1FoldFlag[0])
+							player1VsDealer = ThreeCardLogic.compareHands(dealer.getDealersHand(), player1.getHand()); // 0, 1, or 2 depending on who won
+
+						// tie between player1 and dealer
+						if (player1VsDealer == 0) {
+							gameNotes.setText("Player 1 and dealer tied");
+							player1.setTotalWinnings(player1.getTotalWinnings() + player1.getPlayBet());
+							pane.getChildren().remove(playerOneBalance[0]);
+							playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+							playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+							pane.getChildren().add(playerOneBalance[0]);
+
+							player2FoldFlag[0] = false;
+							dealerQualifyFlag[0] = false;
+						}
+
+						// dealer wins over player1:
+						if (player1VsDealer == 1) {
+							gameNotes.setText("Dealer wins over player 1");
+
+							player1.setTotalWinnings(player1.getTotalWinnings() - player1.getPlayBet() - player1.getAnteBet());
+							pane.getChildren().remove(playerOneBalance[0]);
+							playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+							playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+							pane.getChildren().add(playerOneBalance[0]);
+
+							if (player2FoldFlag[0] == true)
+								player1.setAnteBet(0);
+							player2FoldFlag[0] = false;
+							dealerQualifyFlag[0] = false;
+						}
+
+						// player1 wins:
+						if (player1VsDealer == 2) {
+							gameNotes.setText("Player 1 wins over dealer");
+
+							player1.setTotalWinnings(player1.getTotalWinnings() + 2*(player1.getPlayBet() + player1.getAnteBet()));
+							pane.getChildren().remove(playerOneBalance[0]);
+							playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+							playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+							pane.getChildren().add(playerOneBalance[0]);
+
+							if (player2FoldFlag[0] == true)
+								player1.setAnteBet(0);
+							player2FoldFlag[0] = false;
+							dealerQualifyFlag[0] = false;
+						}
+					}
+
+					// re-enable player1's buttons and text fields:
+					playerOneBtn.setDisable(false);
+					playerOneBtn2.setDisable(false);
+					playerOneFold.setDisable(false);
+
+					playerOneAnteBet.setDisable(false);
+					playerOnePP.setDisable(false);
+
+					// re=enable player2's buttons and text fields:
+					playerTwoBtn.setDisable(false);
+					playerTwoBtn2.setDisable(false);
+					playerTwoFold.setDisable(false);
+
+					playerTwoBet.setDisable(false);
+					playerTwoPP.setDisable(false);
+
+					// display player 1's card backs:
+					player1Card1.getChildren().clear();
+					player1Card2.getChildren().clear();
+					player1Card3.getChildren().clear();
+					if (defaultStyleFlag[0]) {
+						player1Card1.getChildren().add(purpleCardBackView);
+						player1Card2.getChildren().add(purpleCardBackView2);
+						player1Card3.getChildren().add(purpleCardBackView3);
+					}
+					else if (hallenbeckStyleFlag[0]) {
+						player1Card1.getChildren().add(BeckView);
+						player1Card2.getChildren().add(BeckView2);
+						player1Card3.getChildren().add(BeckView3);
+					}
+					else {
+						player1Card1.getChildren().add(fireNinjaView);
+						player1Card2.getChildren().add(fireNinjaView2);
+						player1Card3.getChildren().add(fireNinjaView3);
+					}
+
+					// display player 2's card backs:
+					player2Card1.getChildren().clear();
+					player2Card2.getChildren().clear();
+					player2Card3.getChildren().clear();
+					if (defaultStyleFlag[0]) {
+						player2Card1.getChildren().add(purpleCardBackView4);
+						player2Card2.getChildren().add(purpleCardBackView5);
+						player2Card3.getChildren().add(purpleCardBackView6);
+					}
+					else if (hallenbeckStyleFlag[0]) {
+						player2Card1.getChildren().add(BeckView4);
+						player2Card2.getChildren().add(BeckView5);
+						player2Card3.getChildren().add(BeckView6);
+					}
+					else {
+						player2Card1.getChildren().add(waterNinjaView);
+						player2Card2.getChildren().add(waterNinjaView2);
+						player2Card3.getChildren().add(waterNinjaView3);
+					}
+
+
+					// display dealers's card backs
 					dealerCard1.getChildren().clear();
-					dealerCard1.getChildren().add(purpleCardBackView7);
 					dealerCard2.getChildren().clear();
-					dealerCard2.getChildren().add(purpleCardBackView8);
 					dealerCard3.getChildren().clear();
-					dealerCard3.getChildren().add(purpleCardBackView9);
 
-					// player1 did not fold, so they get their bet back:
-					if (player1FoldFlag[0] == false) {
-						// update player1 balance:
-						player1.setTotalWinnings(player1.getTotalWinnings()+player1.getPlayBet());
-						pane.getChildren().remove(playerOneBalance[0]);
-
-						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
-						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
-						pane.getChildren().add(playerOneBalance[0]);
+					if (defaultStyleFlag[0]) {
+						dealerCard1.getChildren().add(purpleCardBackView7);
+						dealerCard2.getChildren().add(purpleCardBackView8);
+						dealerCard3.getChildren().add(purpleCardBackView9);
 					}
-				}
-				// dealer did qualify:
-				else {
-					// evaluate player1 and dealer's hands:
-					int player1VsDealer = -1;
-					int player2VsDealer = -1;
-
-					if (!player1FoldFlag[0])
-						player1VsDealer = ThreeCardLogic.compareHands(dealer.getDealersHand(), player1.getHand()); // 0, 1, or 2 depending on who won
-
-					// tie between player1 and dealer
-					if (player1VsDealer == 0) {
-						player1.setTotalWinnings(player1.getTotalWinnings() + player1.getPlayBet());
-						pane.getChildren().remove(playerOneBalance[0]);
-						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
-						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
-						pane.getChildren().add(playerOneBalance[0]);
-
-						player2FoldFlag[0] = false;
-						dealerQualifyFlag[0] = false;
+					else if (hallenbeckStyleFlag[0]) {
+						dealerCard1.getChildren().add(BeckView7);
+						dealerCard2.getChildren().add(BeckView8);
+						dealerCard3.getChildren().add(BeckView9);
 					}
+					else {
+						dealerCard1.getChildren().add(snowNinjaView);
+						dealerCard2.getChildren().add(snowNinjaView2);
+						dealerCard3.getChildren().add(snowNinjaView3);
+					}});
+				twoSecPause.play();
 
-					// dealer wins over player1:
-					if (player1VsDealer == 1) {
-						player1.setTotalWinnings(player1.getTotalWinnings() - player1.getPlayBet() - player1.getAnteBet());
-						pane.getChildren().remove(playerOneBalance[0]);
-						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
-						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
-						pane.getChildren().add(playerOneBalance[0]);
-
-						if (player2FoldFlag[0] == true)
-							player1.setAnteBet(0);
-						player2FoldFlag[0] = false;
-						dealerQualifyFlag[0] = false;
-					}
-
-					// player1 wins:
-					if (player1VsDealer == 2) {
-						player1.setTotalWinnings(player1.getTotalWinnings() + 2*(player1.getPlayBet() + player1.getAnteBet()));
-						pane.getChildren().remove(playerOneBalance[0]);
-						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
-						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
-						pane.getChildren().add(playerOneBalance[0]);
-
-						if (player2FoldFlag[0] == true)
-							player1.setAnteBet(0);
-						player2FoldFlag[0] = false;
-						dealerQualifyFlag[0] = false;
-					}
-				}
 			}
 		});
 
@@ -669,6 +853,7 @@ public class ThreeCardPokerGame extends Application {
 					player2.setAnteBet(player2.getAnteBet()+player2PlayBet);
 
 					if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
+						gameNotes.setText("Player 2 bet $" + player2.getPlayBet() " for ante/play bet and $" + player2.getPairPlusBet() + " for pair plus bet");
 						// update player2 balance:
 						//RESETS
 						player2.setTotalWinnings(player2.getTotalWinnings()-player2.getPlayBet()-player2.getPairPlusBet());
@@ -676,6 +861,8 @@ public class ThreeCardPokerGame extends Application {
 
 						playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
 						playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
+						playerTwoBalance[0].setFill(Color.DARKRED);
+						playerTwoBalance[0].setStyle("-fx-font-weight: bold");
 						pane.getChildren().add(playerTwoBalance[0]);
 
 						player2.setAnteBet(player2PlayBet);
@@ -683,13 +870,9 @@ public class ThreeCardPokerGame extends Application {
 						player2.setPairPlusBet(player2PPBet);
 						playerTwoBet.setDisable(true);
 						playerTwoPP.setDisable(true);
-						//player2.setHand(dealer.dealHand());
+						player2.setHand(dealer.dealHand());
 
 						// show player 2's cards:
-						player2.getHand().add(new Card('D', 2));
-						player2.getHand().add(new Card('D', 4));
-						player2.getHand().add(new Card('C', 5));
-
 						PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 						twoSecondPause.setOnFinished(e -> {
 							//RESETS
@@ -704,16 +887,14 @@ public class ThreeCardPokerGame extends Application {
 
 						// set dealer's hand:
 						dealer.dealHand();
-						dealer.getDealersHand().clear();
-						dealer.getDealersHand().add(new Card('C', 12));
-						dealer.getDealersHand().add(new Card('C', 13));
-						dealer.getDealersHand().add(new Card('C', 14));
 
 						//evaluates Pair Plus and adjusts the balance on the screen for Player 2
 						//RESETS
 						player2.setTotalWinnings(player2.getTotalWinnings() + (ThreeCardLogic.evalPPWinnings(player2.getHand(), player2PPBet)));
 						pane.getChildren().remove(playerTwoBalance[0]);
 						playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
+						playerTwoBalance[0].setFill(Color.DARKRED);
+						playerTwoBalance[0].setStyle("-fx-font-weight: bold");
 						playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
 						pane.getChildren().add(playerTwoBalance[0]);
 					}
@@ -735,6 +916,7 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoBtn2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				playerTwoBtn2.setDisable(true);
 				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 				twoSecondPause.setOnFinished(e->{
 					// display dealer's cards:
@@ -768,125 +950,204 @@ public class ThreeCardPokerGame extends Application {
 				}
 				PauseTransition twoSecPause = new PauseTransition(Duration.seconds(2));
 				twoSecPause.setOnFinished(e-> {
-				// dealer did not qualify, so flip cards over:
-				if (dealerQualifyFlag[0] == false) {
-					dealerCard1.getChildren().clear();
-					dealerCard1.getChildren().add(purpleCardBackView7);
-					dealerCard2.getChildren().clear();
-					dealerCard2.getChildren().add(purpleCardBackView8);
-					dealerCard3.getChildren().clear();
-					dealerCard3.getChildren().add(purpleCardBackView9);
+					// dealer did not qualify, so flip cards over:
+					if (dealerQualifyFlag[0] == false) {
+						//gameNotes.setText("Dealer");
+						dealerCard1.getChildren().clear();
+						dealerCard1.getChildren().add(purpleCardBackView7);
+						dealerCard2.getChildren().clear();
+						dealerCard2.getChildren().add(purpleCardBackView8);
+						dealerCard3.getChildren().clear();
+						dealerCard3.getChildren().add(purpleCardBackView9);
 
-					// player1 did not fold, so they get their bet back:
-					if (player1FoldFlag[0] == false) {
-						// update player1 balance:
+						// player1 did not fold, so they get their bet back:
+						if (player1FoldFlag[0] == false) {
+							// update player1 balance:
+							//RESETS
+							player1.setTotalWinnings(player1.getTotalWinnings()+player1.getPlayBet());
+							pane.getChildren().remove(playerOneBalance[0]);
+
+							playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
+							playerOneBalance[0].setFont(Font.font ("Verdana", 20));
+							pane.getChildren().add(playerOneBalance[0]);
+						}
+
+						// update player2 balance:
 						//RESETS
-						player1.setTotalWinnings(player1.getTotalWinnings()+player1.getPlayBet());
-						pane.getChildren().remove(playerOneBalance[0]);
+						player2.setTotalWinnings(player2.getTotalWinnings()+player2.getPlayBet());
+						pane.getChildren().remove(playerTwoBalance[0]);
 
-						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
-						playerOneBalance[0].setFont(Font.font ("Verdana", 20));
-						pane.getChildren().add(playerOneBalance[0]);
+						playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
+						playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
+						pane.getChildren().add(playerTwoBalance[0]);
+					}
+						// dealer did qualify:
+					else{
+						//RESETS
+							// evaluate player1 and dealer's hands:
+							int player1VsDealer = -1;
+							int player2VsDealer = -1;
+
+							if (!player1FoldFlag[0])
+								player1VsDealer = ThreeCardLogic.compareHands(dealer.getDealersHand(), player1.getHand()); // 0, 1, or 2 depending on who won
+							if (!player2FoldFlag[0])
+								player2VsDealer = ThreeCardLogic.compareHands(dealer.getDealersHand(), player2.getHand()); // 0, 1 or 2, depending on who won
+
+							// tie between player1 and dealer
+							if (player1VsDealer == 0) {
+								player1.setTotalWinnings(player1.getTotalWinnings() + player1.getPlayBet());
+								pane.getChildren().remove(playerOneBalance[0]);
+								playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
+								playerOneBalance[0].setFont(Font.font("Verdana", 20));
+								pane.getChildren().add(playerOneBalance[0]);
+
+								player2FoldFlag[0] = false;
+								dealerQualifyFlag[0] = false;
+							}
+
+							// dealer wins over player1:
+							if (player1VsDealer == 1) {
+								player1.setTotalWinnings(player1.getTotalWinnings() - player1.getPlayBet() - player1.getAnteBet());
+								pane.getChildren().remove(playerOneBalance[0]);
+								playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
+								playerOneBalance[0].setFont(Font.font("Verdana", 20));
+								pane.getChildren().add(playerOneBalance[0]);
+
+								if (player2FoldFlag[0] == true)
+									player1.setAnteBet(0);
+								player2FoldFlag[0] = false;
+								dealerQualifyFlag[0] = false;
+							}
+
+							// player1 wins:
+							if (player1VsDealer == 2) {
+								player1.setTotalWinnings(player1.getTotalWinnings() + 2 * (player1.getPlayBet() + player1.getAnteBet()));
+								pane.getChildren().remove(playerOneBalance[0]);
+								playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
+								playerOneBalance[0].setFont(Font.font("Verdana", 20));
+								pane.getChildren().add(playerOneBalance[0]);
+
+								if (player2FoldFlag[0] == true)
+									player1.setAnteBet(0);
+								player2FoldFlag[0] = false;
+								dealerQualifyFlag[0] = false;
+							}
+
+							// tie between player2 and dealer
+							if (player2VsDealer == 0) {
+								player2.setTotalWinnings(player2.getTotalWinnings() + player2.getPlayBet());
+								pane.getChildren().remove(playerTwoBalance[0]);
+								playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
+								playerTwoBalance[0].setFont(Font.font("Verdana", 20));
+								pane.getChildren().add(playerTwoBalance[0]);
+
+								player1FoldFlag[0] = false;
+								dealerQualifyFlag[0] = false;
+							}
+
+							// dealer wins over player2:
+							if (player2VsDealer == 1) {
+								player2.setTotalWinnings(player2.getTotalWinnings() - player2.getPlayBet() - player2.getAnteBet());
+								pane.getChildren().remove(playerTwoBalance[0]);
+								playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
+								playerTwoBalance[0].setFont(Font.font("Verdana", 20));
+								pane.getChildren().add(playerTwoBalance[0]);
+
+								player2.setAnteBet(0);
+								player1FoldFlag[0] = false;
+								dealerQualifyFlag[0] = false;
+							}
+
+							// player2 wins over dealer:
+							if (player2VsDealer == 2) {
+								player2.setTotalWinnings(player2.getTotalWinnings() + 2 * (player2.getPlayBet() + player2.getAnteBet()));
+								pane.getChildren().remove(playerTwoBalance[0]);
+								playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
+								playerTwoBalance[0].setFont(Font.font("Verdana", 20));
+								pane.getChildren().add(playerTwoBalance[0]);
+
+								player2.setAnteBet(0);
+								player1FoldFlag[0] = false;
+								dealerQualifyFlag[0] = false;
+							}
+						}
+
+					// re-enable player1's buttons and text fields:
+					playerOneBtn.setDisable(false);
+					playerOneBtn2.setDisable(false);
+					playerOneFold.setDisable(false);
+
+					playerOneAnteBet.setDisable(false);
+					playerOnePP.setDisable(false);
+
+					// re=enable player2's buttons and text fields:
+					playerTwoBtn.setDisable(false);
+					playerTwoBtn2.setDisable(false);
+					playerTwoFold.setDisable(false);
+
+					playerTwoBet.setDisable(false);
+					playerTwoPP.setDisable(false);
+
+					// display player 1's card backs:
+					player1Card1.getChildren().clear();
+					player1Card2.getChildren().clear();
+					player1Card3.getChildren().clear();
+					if (defaultStyleFlag[0]) {
+						player1Card1.getChildren().add(purpleCardBackView);
+						player1Card2.getChildren().add(purpleCardBackView2);
+						player1Card3.getChildren().add(purpleCardBackView3);
+					}
+					else if (hallenbeckStyleFlag[0]) {
+						player1Card1.getChildren().add(BeckView);
+						player1Card2.getChildren().add(BeckView2);
+						player1Card3.getChildren().add(BeckView3);
+					}
+					else {
+						player1Card1.getChildren().add(fireNinjaView);
+						player1Card2.getChildren().add(fireNinjaView2);
+						player1Card3.getChildren().add(fireNinjaView3);
 					}
 
-					// update player2 balance:
-					//RESETS
-					player2.setTotalWinnings(player2.getTotalWinnings()+player2.getPlayBet());
-					pane.getChildren().remove(playerTwoBalance[0]);
+					// display player 2's card backs:
+					player2Card1.getChildren().clear();
+					player2Card2.getChildren().clear();
+					player2Card3.getChildren().clear();
+					if (defaultStyleFlag[0]) {
+						player2Card1.getChildren().add(purpleCardBackView4);
+						player2Card2.getChildren().add(purpleCardBackView5);
+						player2Card3.getChildren().add(purpleCardBackView6);
+					}
+					else if (hallenbeckStyleFlag[0]) {
+						player2Card1.getChildren().add(BeckView4);
+						player2Card2.getChildren().add(BeckView5);
+						player2Card3.getChildren().add(BeckView6);
+					}
+					else {
+						player2Card1.getChildren().add(waterNinjaView);
+						player2Card2.getChildren().add(waterNinjaView2);
+						player2Card3.getChildren().add(waterNinjaView3);
+					}
 
-					playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
-					playerTwoBalance[0].setFont(Font.font ("Verdana", 20));
-					pane.getChildren().add(playerTwoBalance[0]);
-				}
-					// dealer did qualify:
-				else{
-					//RESETS
-						// evaluate player1 and dealer's hands:
-						int player1VsDealer = -1;
-						int player2VsDealer = -1;
 
-						if (!player1FoldFlag[0])
-							player1VsDealer = ThreeCardLogic.compareHands(dealer.getDealersHand(), player1.getHand()); // 0, 1, or 2 depending on who won
-						if (!player2FoldFlag[0])
-							player2VsDealer = ThreeCardLogic.compareHands(dealer.getDealersHand(), player2.getHand()); // 0, 1 or 2, depending on who won
+					// display dealers's card backs
+					dealerCard1.getChildren().clear();
+					dealerCard2.getChildren().clear();
+					dealerCard3.getChildren().clear();
 
-						// tie between player1 and dealer
-						if (player1VsDealer == 0) {
-							player1.setTotalWinnings(player1.getTotalWinnings() + player1.getPlayBet());
-							pane.getChildren().remove(playerOneBalance[0]);
-							playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
-							playerOneBalance[0].setFont(Font.font("Verdana", 20));
-							pane.getChildren().add(playerOneBalance[0]);
-
-							player2FoldFlag[0] = false;
-							dealerQualifyFlag[0] = false;
-						}
-
-						// dealer wins over player1:
-						if (player1VsDealer == 1) {
-							player1.setTotalWinnings(player1.getTotalWinnings() - player1.getPlayBet() - player1.getAnteBet());
-							pane.getChildren().remove(playerOneBalance[0]);
-							playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
-							playerOneBalance[0].setFont(Font.font("Verdana", 20));
-							pane.getChildren().add(playerOneBalance[0]);
-
-							if (player2FoldFlag[0] == true)
-								player1.setAnteBet(0);
-							player2FoldFlag[0] = false;
-							dealerQualifyFlag[0] = false;
-						}
-
-						// player1 wins:
-						if (player1VsDealer == 2) {
-							player1.setTotalWinnings(player1.getTotalWinnings() + 2 * (player1.getPlayBet() + player1.getAnteBet()));
-							pane.getChildren().remove(playerOneBalance[0]);
-							playerOneBalance[0] = new Text(200, 475, "Balance: $" + player1.getTotalWinnings());
-							playerOneBalance[0].setFont(Font.font("Verdana", 20));
-							pane.getChildren().add(playerOneBalance[0]);
-
-							if (player2FoldFlag[0] == true)
-								player1.setAnteBet(0);
-							player2FoldFlag[0] = false;
-							dealerQualifyFlag[0] = false;
-						}
-
-						// tie between player2 and dealer
-						if (player2VsDealer == 0) {
-							player2.setTotalWinnings(player2.getTotalWinnings() + player2.getPlayBet());
-							pane.getChildren().remove(playerTwoBalance[0]);
-							playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
-							playerTwoBalance[0].setFont(Font.font("Verdana", 20));
-							pane.getChildren().add(playerTwoBalance[0]);
-
-							player1FoldFlag[0] = false;
-							dealerQualifyFlag[0] = false;
-						}
-
-						// dealer wins over player2:
-						if (player2VsDealer == 1) {
-							player2.setTotalWinnings(player2.getTotalWinnings() - player2.getPlayBet() - player2.getAnteBet());
-							pane.getChildren().remove(playerTwoBalance[0]);
-							playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
-							playerTwoBalance[0].setFont(Font.font("Verdana", 20));
-							pane.getChildren().add(playerTwoBalance[0]);
-
-							player2.setAnteBet(0);
-							player1FoldFlag[0] = false;
-							dealerQualifyFlag[0] = false;
-						}
-
-						// player2 wins over dealer:
-						if (player2VsDealer == 2) {
-							player2.setTotalWinnings(player2.getTotalWinnings() + 2 * (player2.getPlayBet() + player2.getAnteBet()));
-							pane.getChildren().remove(playerTwoBalance[0]);
-							playerTwoBalance[0] = new Text(800, 475, "Balance: $" + player2.getTotalWinnings());
-							playerTwoBalance[0].setFont(Font.font("Verdana", 20));
-							pane.getChildren().add(playerTwoBalance[0]);
-
-							player2.setAnteBet(0);
-							player1FoldFlag[0] = false;
-							dealerQualifyFlag[0] = false;
-						}
+					if (defaultStyleFlag[0]) {
+						dealerCard1.getChildren().add(purpleCardBackView7);
+						dealerCard2.getChildren().add(purpleCardBackView8);
+						dealerCard3.getChildren().add(purpleCardBackView9);
+					}
+					else if (hallenbeckStyleFlag[0]) {
+						dealerCard1.getChildren().add(BeckView7);
+						dealerCard2.getChildren().add(BeckView8);
+						dealerCard3.getChildren().add(BeckView9);
+					}
+					else {
+						dealerCard1.getChildren().add(snowNinjaView);
+						dealerCard2.getChildren().add(snowNinjaView2);
+						dealerCard3.getChildren().add(snowNinjaView3);
 					}
 				});
 				twoSecPause.play();
