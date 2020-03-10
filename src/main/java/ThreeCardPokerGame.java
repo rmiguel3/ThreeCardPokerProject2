@@ -468,6 +468,7 @@ public class ThreeCardPokerGame extends Application {
 		playerOneBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				//RESETS
 				int player1PlayBet = Integer.parseInt(playerOneAnteBet.getText());
 				player1.setPlayBet(player1PlayBet);
 
@@ -479,6 +480,7 @@ public class ThreeCardPokerGame extends Application {
 
 					if (playerOnePP.getText() != null && ((player1PPBet > 4 && player1PPBet < 26) || player1PPBet == 0)) {
 						// update player1's balance:
+						//RESETS
 						player1.setTotalWinnings(player1.getTotalWinnings()-player1.getPlayBet()-player1.getPairPlusBet());
 						pane.getChildren().remove(playerOneBalance[0]);
 
@@ -498,6 +500,7 @@ public class ThreeCardPokerGame extends Application {
 
 						PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 						twoSecondPause.setOnFinished(e->{
+							//RESETS
 							player1Card1.getChildren().clear();
 							player1Card1.getChildren().add(new ImageView(new Image("" + player1.getHand().get(0).getValue() + player1.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
 							player1Card2.getChildren().clear();
@@ -509,6 +512,7 @@ public class ThreeCardPokerGame extends Application {
 						twoSecondPause.play();
 
 						//evaluates Pair Plus and adjusts the balance on the screen for PLayer 1
+						//RESETS
 						player1.setTotalWinnings(player1.getTotalWinnings() + (ThreeCardLogic.evalPPWinnings(player1.getHand(), player1PPBet)));
 						pane.getChildren().remove(playerOneBalance[0]);
 						playerOneBalance[0] = new Text(200,475, "Balance: $" + player1.getTotalWinnings());
@@ -523,6 +527,7 @@ public class ThreeCardPokerGame extends Application {
 		playerOneFold.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				//RESETS
 				player1FoldFlag[0] = true;
 
 				player1Card1.getChildren().clear();
@@ -540,6 +545,7 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoFold.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				//RESETS
 				player2FoldFlag[0] = true;
 
 				player2Card1.getChildren().clear();
@@ -653,6 +659,7 @@ public class ThreeCardPokerGame extends Application {
 		playerTwoBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				//RESETS
 				int player2PlayBet = Integer.parseInt(playerTwoBet.getText());
 				player2.setPlayBet(player2PlayBet);
 
@@ -663,6 +670,7 @@ public class ThreeCardPokerGame extends Application {
 
 					if (playerTwoPP.getText() != null && ((player2PPBet > 4 && player2PPBet < 26) || player2PPBet == 0)) {
 						// update player2 balance:
+						//RESETS
 						player2.setTotalWinnings(player2.getTotalWinnings()-player2.getPlayBet()-player2.getPairPlusBet());
 						pane.getChildren().remove(playerTwoBalance[0]);
 
@@ -684,6 +692,7 @@ public class ThreeCardPokerGame extends Application {
 
 						PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 						twoSecondPause.setOnFinished(e -> {
+							//RESETS
 							player2Card1.getChildren().clear();
 							player2Card1.getChildren().add(new ImageView(new Image("" + player2.getHand().get(0).getValue() + player2.getHand().get(0).getSuit() + ".png", 90, 150, true, true)));
 							player2Card2.getChildren().clear();
@@ -701,6 +710,7 @@ public class ThreeCardPokerGame extends Application {
 						dealer.getDealersHand().add(new Card('C', 14));
 
 						//evaluates Pair Plus and adjusts the balance on the screen for Player 2
+						//RESETS
 						player2.setTotalWinnings(player2.getTotalWinnings() + (ThreeCardLogic.evalPPWinnings(player2.getHand(), player2PPBet)));
 						pane.getChildren().remove(playerTwoBalance[0]);
 						playerTwoBalance[0] = new Text(800,475, "Balance: $" + player2.getTotalWinnings());
@@ -715,6 +725,7 @@ public class ThreeCardPokerGame extends Application {
 		playerOneBtn2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				//RESETS
 				player1.setPlayBet(player1.getAnteBet());
 				playerOneBtn2.setDisable(true);
 			}
@@ -727,6 +738,7 @@ public class ThreeCardPokerGame extends Application {
 				PauseTransition twoSecondPause = new PauseTransition(Duration.seconds(2));
 				twoSecondPause.setOnFinished(e->{
 					// display dealer's cards:
+					//RESETS
 					dealerCard1.getChildren().clear();
 					dealerCard1.getChildren().add(new ImageView(new Image("" + dealer.getDealersHand().get(0).getValue() + dealer.getDealersHand().get(0).getSuit() + ".png", 90, 150, true, true)));
 					dealerCard2.getChildren().clear();
@@ -743,6 +755,7 @@ public class ThreeCardPokerGame extends Application {
 				// dealer has high card, so check if at least one card is queen or better and set flag accordingly:
 				if (dealerHandResult == 0) {
 					for (int i = 0; i < 3; i++) {
+						//RESETS
 						if (dealer.getDealersHand().get(i).getValue() >= 12) {
 							dealerQualifyFlag[0] = true; // dealer did qualify, so set flag to true
 							break;
@@ -767,6 +780,7 @@ public class ThreeCardPokerGame extends Application {
 					// player1 did not fold, so they get their bet back:
 					if (player1FoldFlag[0] == false) {
 						// update player1 balance:
+						//RESETS
 						player1.setTotalWinnings(player1.getTotalWinnings()+player1.getPlayBet());
 						pane.getChildren().remove(playerOneBalance[0]);
 
@@ -776,6 +790,7 @@ public class ThreeCardPokerGame extends Application {
 					}
 
 					// update player2 balance:
+					//RESETS
 					player2.setTotalWinnings(player2.getTotalWinnings()+player2.getPlayBet());
 					pane.getChildren().remove(playerTwoBalance[0]);
 
@@ -785,6 +800,7 @@ public class ThreeCardPokerGame extends Application {
 				}
 					// dealer did qualify:
 				else{
+					//RESETS
 						// evaluate player1 and dealer's hands:
 						int player1VsDealer = -1;
 						int player2VsDealer = -1;
